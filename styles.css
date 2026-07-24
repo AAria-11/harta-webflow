@@ -1,0 +1,5321 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+    flex-direction: column;
+    display: flex;
+    min-height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.mapboxgl-container {
+    cursor: pointer;
+}
+
+.main-container {
+    flex: 1; /* Take up all available space after the navbar */
+}
+
+.map-container {
+    position: relative; /* Needed to serve as a reference for absolute positioning */
+    height: 100%; /* Ensure it takes the full desired space */
+    width: 100%; /* Ensure it covers the full width */
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 24px;
+    height: 74px;
+    width: 100%; /* Ensures the navigation bar spans the full width of the viewport */
+    background: #FBF7F2;
+    border-top: 0.5px solid #25121B;
+    border-bottom: 0.5px solid #25121B;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.home-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-title {
+    font-family: 'Anton', sans-serif; /* Uses Anton font, with a sans-serif fallback */
+    font-size: 30px; /* Sets the font size to 30px */
+    font-weight: 400; /* Although Anton typically comes in only one weight, this ensures consistency */
+    line-height: 45px; /* Sets the line height, which affects the spacing above and below the text */
+    letter-spacing: -0.022em; /* Adjusts the spacing between characters slightly tighter */
+    text-align: left; /* Aligns the text to the left */
+    color: #25121B;
+    text-decoration: none;
+}
+
+.nav-subtitle {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: -0.03em;
+    text-align: left;
+    margin-top: -10px;
+    color: #AC547C; /* Sets the background color to #AC547C */
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links nav a:last-child::before {
+    content: ""; /* No text content, just a visual element */
+    display: inline-block; /* Treat the pseudo-element as a block, but inline with text */
+    height: 25px; /* The height of the vertical line */
+    width: 1px; /* The "border" thickness, effectively the width of the vertical line */
+    background-color: #909090; /* Color of the line, fulfilling the border color requirement */
+    margin-right: 28px;
+    position: relative; /* Allows for fine adjustment */
+    top: 0.5em; /* Adjust vertically to better align with the middle of the text; may need tweaking */
+}
+
+.nav-links nav a:last-child {
+    margin-right: 0px; /* Remove extra margin for the last link */
+}
+
+.nav-links nav a {
+    text-decoration: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 74px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-right: 28px; /* Space between links */
+    color: #25121B;
+}
+
+.side-panel {
+    position: absolute;
+    width: 320px;
+    height: calc(100vh - 108px);
+    top: 108px;
+    left: 0px;
+    background-color: #FBF7F2; /* Updated background color */
+    box-shadow: 0px 2px 10px 0px #00000326;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+}
+
+#obiective-panel {
+    flex: 1; /* This makes obiective-panel fill the remaining space */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent scroll here, let gallery-container scroll */
+}
+
+#filtre-panel {
+    flex: 1; /* This makes obiective-panel fill the remaining space */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.icon-buttons {
+    position: absolute;
+    top: 100vh - 108px; /* Align vertically with the top of the side panel */
+    left: 320px; /* Positioned immediately to the right of the side panel */
+    width: 50px;
+    height: 108px;
+    display: flex; /* Arranges buttons in a row */
+    flex-direction: column;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 0px 4px 4px 0px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex; /* Enables Flexbox layout for centering content */
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    border: none;
+    cursor: pointer;
+    background: #E4E4E4;
+}
+
+.icon-btn:hover {
+    /* Hover styles, e.g., slightly darker background */
+    filter: brightness(95%);
+}
+
+.icon-btn1 {
+
+}
+
+.icon-btn2 {
+
+}
+
+.icon-btn-active {
+    background: #AD537C;
+}
+
+.icon-btn img {
+    display: block; /* or 'inline-block' */
+}
+
+.side-panel-btn {
+    position: absolute;
+    top: 54%;
+    left: 320px;
+    transform: translateY(-50%); /* Adjust vertical centering due to the positioning */
+    width: 36px;
+    height: 48px;
+    background-color: #FBF7F2; /* Set your desired button color */
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 0px 4px 4px 0px;
+    z-index: 5;
+}
+
+.side-panel-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 2px 10px #00000326; /* Apply shadow */
+    border-radius: 0px 4px 4px 0px; /* Match border-radius of the button */
+    z-index: 4; /* Place the pseudo-element behind the button */
+    clip-path: inset(-10px -10px -10px 0); /* Remove shadow from the left side */
+}
+
+.side-panel-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 23.4px;
+    letter-spacing: -0.03em;
+    text-align: left;
+    margin-top: 24px;
+    margin-left: 24px;
+    color: #AC547C; /* Sets the background color to #AC547C */
+}
+
+#custom-bulleted-list, 
+#mobileCustomBulletedList {
+    list-style: none; /* Removes default list bullets */
+    padding-left: 0; /* Removes default padding */
+    margin-left: 24px;
+}
+
+#custom-bulleted-list li,
+#mobileCustomBulletedList li {
+    position: relative;
+    padding-left: 26px; /* Space for custom bullet */
+    margin-bottom: 8px; /* Spacing between list items */
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 20.8px;
+    text-align: left;
+    color: #25121B;
+    margin-right: 8px;
+}
+
+#custom-bulleted-list li:hover,
+#mobileCustomBulletedList li:hover {
+    cursor: pointer;
+}
+
+#custom-bulleted-list li::before,
+#mobileCustomBulletedList li::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px; /* Bullet size */
+    height: 18px; /* Bullet size */
+    border-radius: 50%; /* Makes the bullet round */
+    /* The background-color will be added dynamically with JavaScript */
+    background-color: var(--bullet-color); /* Use a CSS variable for the bullet color */
+}
+
+#custom-bulleted-list li:last-child,
+#mobileCustomBulletedList li:last-child {
+    margin-bottom: 0; /* Removes the bottom margin for the last list item */
+}
+
+.sep-line {
+    border: 0.5px solid #B6B6B6
+}
+
+.sep-line-dashed {
+    border: 0.5px dashed #B6B6B6;
+    margin-right: 24px;
+    margin-left: 24px;
+    margin-top: 8px;
+}
+
+#card-sep-line {
+    display: none;
+}
+
+.search-bar {
+    position: relative;
+    margin: 16px 24px;
+}
+
+.search-bar input[type="search"]::-webkit-search-decoration {
+    display: none;
+}
+
+.search-bar-events input[type="search"]::-webkit-search-decoration {
+    display: none;
+}
+
+.search-bar-events input[type="search"] {
+    font-size: 16px; /* Adjust as needed */
+    outline: none; /* Removes the outline to match the design in the image */
+    box-shadow: none; /* Removes any default browser styling */
+    border: none;
+    background-color: #FBF6EF;
+    width: 193px;
+}
+
+.search-bar-events input[type="search"]::placeholder {
+    color: #717171;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+}
+
+.search-bar input[type="search"] {
+    width: 260px;
+    height: 44px;
+    padding: 8px 8px 8px 40px; /* Add padding on the left for the icon */
+    font-size: 16px; /* Adjust as needed */
+    border: 1px solid #ccc; /* Example border */
+    outline: none; /* Removes the outline to match the design in the image */
+    box-shadow: none; /* Removes any default browser styling */
+    background-image: url('https://cdn.jsdelivr.net/gh/AAria-11/harta-webflow@main/assets/Binoculars.svg'); /* Path to your SVG icon */
+    background-repeat: no-repeat;
+    background-position: 10px center; /* Adjust as needed */
+}
+
+.search-bar input[type="search"]::placeholder {
+    color: #717171;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+}
+
+#objList {
+    color: #25121B;
+    margin-bottom: 16px;
+}
+
+#gallery-container {
+    overflow-y: auto; /* Makes the container scrollable */
+    flex: 1;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.gallery-item-title {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    color: #25121B;
+    margin-bottom: 8px;
+    line-height: 16px;
+}
+
+.gallery-item {
+    cursor: pointer;
+    width: 255px;
+    height: 67px;
+    border: 1.5px dashed transparent; /* Set initial borders transparent */
+    border-bottom: 1.5px dashed #25121B; /* Always visible border-bottom */
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+}
+
+.gallery-item.active .label, .gallery-item.active .gallery-item-title {
+    color: #AD537C; /* Text color for active state */
+    border-color: #AD537C;
+}
+
+.gallery-item.active {
+    border: 1.5px dashed;
+    border-color: #AD537C; /* Bottom border color for active state */
+}
+
+.label-container {
+    display: inline-block; /* Allows for the text to be centered in the parent */
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    height: 22px;
+    text-align: left;
+    color: #5A5A5A;
+}
+
+.label {
+    display: inline-block;
+    padding: 4px 8px;
+    border: 0.5px solid #5A5A5A;
+    height: 22px;
+    box-sizing: border-box;
+}
+
+.hidden-element {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+
+.card {
+    position: relative; /* Needed for positioning pseudo-elements */
+    width: 332px;
+    height: 336px;
+    background: #FBF7F2;
+    padding: 16px 24px; /* Padding inside the card */
+    box-sizing: border-box; /* Include padding and border in the width and height */
+    isolation: isolate;
+    z-index: 10;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+    clip-path: polygon(4% 0, 0 4%, 0 92%, 45% 92%, 50% 98%, 55% 92%, 100% 92%, 100% 4%, 96% 0);
+}
+
+.card::before,
+.card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+
+.card::before {
+    background: #DBDBDB;
+    z-index: -2;
+}
+
+.card::after {
+    --edge-size: 0.10em;
+    background: #FBF7F2;
+    z-index: -1;
+    clip-path: polygon(4% var(--edge-size), var(--edge-size) 4%, var(--edge-size) calc(92% - var(--edge-size)), 45% calc(92% - var(--edge-size)), 50% calc(98% - var(--edge-size)), 55% calc(92% - var(--edge-size)), calc(100% - var(--edge-size)) calc(92% - var(--edge-size)), calc(100% - var(--edge-size)) 4%, calc(96% - var(--edge-size)) var(--edge-size));
+}
+
+
+.card-category {
+    display: inline-block;
+    border: 0.5px solid;
+    padding: 2px 4px;
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    text-align: left;
+}
+
+.card-title {
+    margin-top: 2px;
+    margin-bottom: 4px;
+    font-family: IBM Plex Sans;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 28.6px;
+    text-align: left;
+}
+
+.card-address {
+    margin-bottom: 24px;
+}
+
+.address-text {
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    color: #717171;
+}
+
+#address-text-content {
+}
+
+.address-icon {
+    margin-right: 6px;
+    width: 8px;
+    height: 16px;
+    margin-left: 2px;
+}
+
+.card-social-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 24px;
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    text-align: left;
+    border-bottom: 1px dashed #25121B;
+    border-top: 1px dashed #25121B;
+}
+
+.social-link {
+    display: flex;
+    flex-direction: column; /* Stack the icon and text vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: flex-start; /* Center children vertically */
+    text-align: center;
+    color: #AD537C;
+    text-decoration: none; /* Removes underline from links */
+    font-size: 14px;
+    margin: 8px; /* Add space around links */
+    min-height: 72px;
+}
+
+.social-text {
+    display: inline-block; /* Allows the text to wrap */
+}
+
+.social-icon {
+    display: inline-flex; /* Aligns the icon */
+    align-items: center; /* Center the icon vertically */
+    justify-content: center; /* Center the icon horizontally */
+    width: 36px; /* Diameter of the halo */
+    height: 36px; /* Diameter of the halo */
+    border-radius: 50%; /* Makes it round */
+    margin-bottom: 2px;
+    position: relative;
+    box-shadow: 0 0 0 0px rgba(173, 83, 124, 0); /* No visible box-shadow initially */
+    background-color: rgba(173, 83, 124, 0.09); /* Halo effect on hover */
+}
+
+.social-icon img {
+    width: 24px; /* Width of the icon */
+    height: 24px; /* Height of the icon */
+}
+
+.social-link:hover .social-icon {
+    box-shadow: 0 0 0 1px #AD537C;
+    background-color: rgba(173, 83, 124, 0.20); /* Halo effect on hover */
+}
+
+.card-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19.2px;
+    max-height: 38.4px;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.card-read-more {
+    background: none; /* Remove any button background */
+    border: none; /* Remove borders */
+    color: #AD537C;
+    text-decoration: underline; /* Underline like a hyperlink */
+    cursor: pointer; /* Changes the mouse pointer to suggest this is clickable */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    display: inline; /* Make the button display inline with text content */
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 20.8px;
+    text-align: left;
+}
+
+.section-title {
+    margin-left: 24px;
+    margin-top: 16px;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.custom-checkbox {
+    display: block;
+    position: relative;
+    padding-left: 74px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+
+}
+
+#selectAllCheckbox,
+#mobileSelectAllCheckbox {
+    margin-bottom: 24px;
+    padding-left: 52px;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 20.8px;
+    text-align: left;
+    color: #25121B;
+}
+
+#selectAllCheckmark,
+#mobileSelectAllCheckmark {
+    left: 24px;
+    border: 1.5px solid #ffcb16;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 45px;
+    height: 18px;
+    width: 18px;
+    background-color: #FBF7F2;
+    border: 1.5px solid #878787;
+}
+
+#selectAllCheckbox input:checked ~ #selectAllCheckmark,
+#mobileSelectAllCheckbox input:checked ~ #mobileSelectAllCheckmark {
+    background-color: #ffcb16;
+    border-color: #ffcb16;
+}
+
+  /* When the checkbox is checked, change the background color */
+.custom-checkbox input:checked ~ .checkmark {
+    background-color: #AD537C;
+    border-color: #AD537C;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+    left: 5px; /* Adjust this value to center the checkmark more accurately */
+    top: 1px; /* Adjust this for vertical alignment */
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0; /* Adjusting the thickness to ensure it looks centered */
+    transform: rotate(45deg);
+}
+
+.clasare-container {
+    display: flex;
+    justify-content: center; /* Aligns children (buttons) horizontally center */
+    align-items: center; /* Aligns children (buttons) vertically center */
+    margin-bottom: 24px;
+}
+
+.button-clasare {
+    margin: 0 5px; /* Adds space between buttons */
+    padding: 10px 10px;
+    border: 1px solid #878787; /* Dark grey border */
+    background-color: #FBF7F2; /* Light background color from the image */
+    color: #000;
+    text-align: center;
+    font-family: IBM Plex Sans;
+    line-height: 20.8px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 2px; /* Rounded corners */
+    cursor: pointer; /* Gives a hand icon on hover to indicate it's clickable */
+}
+
+.button-clasare-active {
+    background: #F7ECF2;
+}
+
+.anuleaza-button {
+    display: inline-block;
+    padding: 10px 10px;
+    border: 1px dashed #25121B; /* Dashed border with a light grey color */
+    border-radius: 2px; /* Rounded corners as in the image */
+    text-align: center;
+    background: #E4E4E4;
+    cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+    width: 260px;
+    height: 45px;
+    box-shadow: 0px 4px 10px 0px #0000001A;
+    margin: 24px;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20.8px;
+}
+
+.anuleaza-button-active {
+    background-color: #AD537C;
+    color: white;
+}
+
+.dynamic-label-container {
+    position: absolute;
+    z-index: 5;
+    top: 108px;
+    left: 420px;
+    height: 40px;
+    width: 800px;
+    align-items: center; /* This will vertically center all children in the container */
+}
+
+.dynamic-label {
+    background-color: #AD537C;
+    margin-right: 8px;
+    display: flex;
+    align-items: center; /* This will vertically center the text and close button within the label */
+    justify-content: space-between; /* This will position the text and close button on opposite ends */
+    padding: 8px;
+    border-radius: 2px;
+    color: #FFFDF6;
+}
+
+.dynamic-label-text {
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18.2px;
+    text-align: left;
+}
+
+.dynamic-label-close-btn {
+    cursor: pointer;
+    color: #FFFDF6;
+    display: flex; /* Changed to flex to make use of align-items */
+    align-items: center; /* This will vertically center the 'X' character */
+    justify-content: center; /* This will horizontally center the 'X' character */
+    transition: background-color 0.2s; /* Transition for hover effect */
+    margin-left: 4px;
+    width: 18px;
+    height: 18px;
+    position: relative;
+}
+
+.dynamic-label-close-btn::before,
+.dynamic-label-close-btn::after {
+    content: '';
+    position: absolute;
+    background-color: #FFFDF6;
+    width: 1px; /* The width of the "X" lines */
+    height: 16px; /* The height of the "X" lines */
+    top: 50%;
+    left: 50%;
+    transform-origin: center; /* Ensures rotation occurs in the center */
+}
+
+.dynamic-label-close-btn::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.dynamic-label-close-btn::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.dynamic-label-close-btn:hover {
+    background-color: rgba(255, 253, 246, 0.3); /* Light off-white background on hover */
+}
+
+.zoom-button-container {
+    position: absolute;
+    top: 108px;
+    right: 34px;
+    z-index: 5;
+    font-family: Arial, sans-serif;
+    border: none;
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;
+    width: 44px; /* Width as specified */
+    height: 89px; /* Total height as specified */
+    background: none;
+}
+
+.zoom-button {
+    width: 100%; /* Fill to the container's width */
+    height: 44px; /* Height as specified */
+    font-size: 13px; /* Large font size for visibility */
+    border: none; /* No border by default */
+    color: black; /* Text color */
+    position: relative;
+    background: none;
+    cursor: pointer;
+    background-color: #FBF6EF; /* Beige background */
+    transition: filter 0.3s ease; /* Smooth transition for hover effect */
+    margin-bottom: 1px;
+    box-shadow: 0px 4px 10px 0px #00000033; /* Shadow with specified opacity */
+}
+
+.zoom-button:hover {
+    /* Hover styles, e.g., slightly darker background */
+    filter: brightness(95%);
+}
+
+.plus {
+    border-bottom: 1px solid #9C9C9C; /* Border color as specified */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+/* Correct for the border making the button 1px taller */
+.minus {
+    margin-top: -1px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.zoom-button::before,
+.zoom-button::after {
+  content: '';
+  position: absolute;
+  background-color: black;
+}
+
+.plus::before,
+.plus::after {
+  height: 1.15px; /* Line thickness */
+  width: 13px; /* Line width to match the desired 13x13 symbol size */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.plus::after {
+  width: 1.15px;
+  height: 13px; /* Line height to match the desired 13x13 symbol size */
+}
+
+.minus::before {
+  width: 13px; /* Line width to match the desired 13x13 symbol size */
+  height: 1.15px; /* Line thickness */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mapboxgl-ctrl-geolocate {
+    width: 44px !important;
+    height: 44px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px 0px #00000033 !important; /* Shadow with specified opacity */
+    position: absolute;
+    right: 24px;
+    top: 124px;
+    background-color: #FBF7F2 !important;
+}
+
+.mapboxgl-ctrl-geolocate:active,
+.mapboxgl-ctrl-geolocate:focus,
+.mapboxgl-ctrl-geolocate:hover {
+    box-shadow: 0px 4px 10px 0px #00000033 !important; /* Ensure shadow is consistent in all states */
+}
+
+.logo-container {
+    position: absolute;
+    right: 34px; /* Adjust as needed */
+    bottom: 30px; /* Adjust as needed */
+    z-index: 5; /* Ensures the logo is above the map */
+}
+
+.logo-container img {
+    width: 73px;
+    height: 89px;
+}
+
+.read-more-container {
+    display: flex;
+    height: calc(100vh - 106px); /* Adjust if navbar height is different */
+    top: 106px;
+    padding: 24px 19px;
+    background: #FBF7F2;
+    z-index: 15;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border: 1px solid #DBDBD8;
+    isolation: isolate;
+    clip-path: polygon(2% 0, 0 4%, 0% 100%, 100% 100%, 100% 4%, 98% 0);
+}
+
+.read-more-container .footer-container {
+    flex-shrink: 0;
+}
+
+#readMoreRelatedEventsWrapperDesktop {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+}
+
+#readMoreRelatedSectionTitleDesktop {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+#categoryRelatedFeaturesTitleDesktop {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+#categoryRelatedFeaturesWrapperDesktop {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+}
+
+#categoryRelatedFeaturesContainerDesktop .event-time {
+    color: #3C3830;
+    font-size: 16px;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    text-transform: none;
+    word-wrap: break-word;
+}
+
+#categoryRelatedFeaturesContainerMobile .event-time {
+    color: #3C3830;
+    font-size: 16px;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    word-wrap: break-word;
+    text-transform: none;
+}
+ 
+.read-more-container::before,
+.read-more-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+
+.read-more-container::before {
+    background: #DBDBDB;
+    z-index: -2;
+}
+
+.read-more-container::after {
+    --edge-size: 0.05em;
+    background: #FBF7F2;
+    z-index: -1;
+    clip-path: polygon(2% var(--edge-size), var(--edge-size) 4%, 0% 100%, 100% 100%, 100% 4%, 98% var(--edge-size));
+}
+
+.read-more-container-mobile {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 82px);
+    top: 82px;
+    background: #FBF7F2;
+    z-index: 15;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #DBDBD8;
+    isolation: isolate;
+    clip-path: polygon(4% 0, 0 4%, 0% 100%, 100% 100%, 100% 4%, 96% 0);
+}
+
+.read-more-container-mobile::before,
+.read-more-container-mobile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+
+.read-more-container-mobile::before {
+    background: #DBDBDB;
+    z-index: -2;
+}
+
+.read-more-container-mobile::after {
+    --edge-size: 0.05em;
+    background: #FBF7F2;
+    z-index: -1;
+    clip-path: polygon(4% var(--edge-size), var(--edge-size) 4%, 0% 100%, 100% 100%, 100% 4%, 96% var(--edge-size));
+}
+
+.read-more-container-fixed {
+    display: flex;
+    width: 100%;
+}
+
+.link-decorator {
+    color: #AD537C;
+    text-decoration: none;
+}
+
+.expand-text {
+    color: #AD537C;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    font-family: IBM Plex Sans;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 27.2px;
+    text-align: left;
+    padding: 0;
+}
+
+/* Initially set the max-height to limit the visible content */
+#footnotes-more-text {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+/* When expanded, max-height increases to allow content to show */
+.expanded #footnotes-more-text {
+    max-height: 500px; /* Adjust based on the height of your content */
+}
+
+.read-more-container-mobile-fixed {
+    padding: 16px;
+    padding-top: 0px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.read-more-container-mobile-fixed .custom-dashed-separator {
+    margin-bottom: 0px;
+}
+
+.read-more-container .custom-dashed-separator {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: auto;
+    margin-bottom: 0px;
+    margin-top: 32px;
+}
+
+@media (min-width: 1440px) {
+    .read-more-container {
+        padding: 24px calc((100vw - 1450px) / 2);
+    }
+    .read-more-container-fixed {
+        width: 1440px;
+    }
+}
+
+.image-gallery-container {
+    width: 717px;
+}
+
+.main-image, .main-image-article {
+    width: 100%;
+    height: 590px;
+    background-color: #ddd; /* Placeholder color */
+    margin-bottom: 8px; 
+    position: relative;
+}
+
+.thumbnails, .thumbnails-article {
+    display: flex;
+    justify-content: space-between;
+}
+
+.thumbnail, .thumbnail-article {
+    width: 174px;
+    height: 133px;
+    background-color: #FBF7F2; /* Placeholder color */
+    margin-right: 6px;
+}
+
+.thumbnails .thumbnail:last-child, .thumbnails-article .thumbnail-article:last-child {
+    margin-right: 0px;
+}
+
+.image-gallery-container .main-image img, .image-gallery-container .thumbnail img, .image-gallery-container .thumbnail-article img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+  
+.lightbox {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #FBF7F2;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox-img {
+    max-width: 90%;
+    max-height: 90%;
+    margin: auto;
+}
+
+.lightbox-prev, .lightbox-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 16px;
+    width: 39px;
+    height: 47px;
+}
+
+.lightbox-prev {
+    left: 30px;
+}
+
+.lightbox-next {
+    right: 30px;
+}
+
+.lightbox-close {
+    right: 30px;
+    background: none;
+    position: absolute; /* Position the button absolutely within its parent */
+    top: 20px; /* Align to the top of the container */
+    border: none; /* Removes the border */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+    padding: 16px; /* Provides space around the icon for easier clicking. Adjust as needed */
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    color: #000000;
+    font-size: 18px;
+    transform: translateX(-50%);
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    line-height: 23.4px;
+    text-align: left;
+}
+
+.read-more-content-container {
+    position: relative;
+    flex-grow: 1; /* Takes up remaining space */
+    height: 100%;
+    margin-left: 46px; /* Gap between containers */
+    width: calc(100vw - 717px);
+    overflow-y: auto;
+    padding-right: 75px;
+    box-sizing: content-box;
+}
+
+.photosby {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    color: #5A5A5A;
+    margin-top: 16px;
+}
+
+.read-more-close-button {
+    position: absolute; /* Position the button absolutely within its parent */
+    top: 0; /* Align to the top of the container */
+    right: 0; /* Align to the right of the container */
+    border: none; /* Removes the border */
+    background: none; /* Removes the background */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+    padding: 16px; /* Provides space around the icon for easier clicking. Adjust as needed */
+    z-index: 10; /* Ensure it's above other content */
+    margin-right: 32px;
+}
+
+.read-more-close-button img {
+    display: block; /* Remove any default inline spacing */
+    width: 18px; /* Set width of the 'X' icon */
+    height: 18px; /* Set height of the 'X' icon */
+}
+
+.read-more-category {
+    display: inline-block;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+    border: 1px solid;
+    padding: 2px 4px;
+    border-radius: 2px 0px 0px 0px;
+    margin-bottom: 8px;
+}
+
+.read-more-title, .read-more-section-title {
+    font-family: Anton;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    margin-bottom: 8px;
+    color:  #25121B;
+}
+
+.read-more-org {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+    color: #585858;
+    margin-bottom: 8px;
+}
+
+.read-more-address {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+    color: #585858;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+}
+
+#read-more-address-text {}
+
+.read-more-address-icon {
+    margin-right: 8px;
+    width: 10px;
+    height: 20px;
+}
+
+.read-more-social-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px dashed #25121B;
+    border-top: 1px dashed #25121B;
+    margin-bottom: 32px;
+    padding-top: 22px;
+    padding-bottom: 17px;
+}
+
+.read-more-social-link {
+    display: flex;
+    flex-direction: column; /* Stack the icon and text vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: flex-start; /* Center children vertically */
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: center;
+    color: #AD537C;
+    text-decoration: none; /* Removes underline from links */
+    margin: 8px; /* Add space around links */
+    min-height: 72px;
+}
+
+.read-more-social-icon {
+    display: inline-flex; /* Aligns the icon */
+    align-items: center; /* Center the icon vertically */
+    justify-content: center; /* Center the icon horizontally */
+    width: 44px; /* Diameter of the halo */
+    height: 44px; /* Diameter of the halo */
+    border-radius: 50%; /* Makes it round */
+    margin-bottom: 2px;
+    position: relative;
+    box-shadow: 0 0 0 0px rgba(173, 83, 124, 0); /* No visible box-shadow initially */
+    background-color: rgba(173, 83, 124, 0.09); /* Halo effect on hover */
+}
+
+.read-more-social-icon img {
+    width: 24px; /* Width of the icon */
+    height: 24px; /* Height of the icon */
+}
+
+.read-more-social-link:hover .read-more-social-icon {
+    box-shadow: 0 0 0 1px #AD537C;
+    background-color: rgba(173, 83, 124, 0.20); /* Halo effect on hover */
+}
+
+.read-more-text {
+    font-family: IBM Plex Sans;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 27.2px;
+    text-align: left;
+    color: #25121B;
+    margin-top: 0px;
+    margin-bottom: 32px;
+}
+
+.read-more-share {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20.8px;
+    text-align: left;
+    color: #5A5A5A;
+    margin-bottom: 14px;
+}
+
+.read-more-label-container {
+    height: 30px;
+    margin-bottom: 32px;
+}
+
+.label-share {
+    height: 29px;
+    margin-right: 8px;
+
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+}
+
+#fb-share-article {
+    margin-left: 24px;
+    margin-bottom: 32px;
+}
+
+.about-us-container {
+    position: absolute;
+    height: calc(100vh - 106px);
+    width: 100%;
+    top: 106px;
+    background: #FBF7F2;
+    z-index: 15;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.events-container {
+    position: absolute;
+    height: calc(100% - 74px);
+    width: 100%;
+    top: 74px;
+    overflow-y: auto;
+    background-color: #FEFDFB;
+    z-index: 999;
+}
+
+#archive-container {
+    background-color: #FBF7F2;
+    z-index: 15;
+}
+
+.events-container .footer-container {
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 32px;
+}
+
+.events-header-top {
+    margin-top: 24px;
+    margin-bottom: 48px;
+}
+
+@media (min-width: 900px) {
+    .events-header-top {
+        position: relative;
+    }
+    #event-page-close-btn {
+        position: absolute;
+        top: 0; /* Adjust as needed relative to the top of .events-header-top */
+        right: 0; /* Adjust as needed relative to the right of .events-header-top */
+        /* Ensure it doesn't have the mobile background/padding on desktop */
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+    }
+
+    .events-header-title {
+        padding-top: 24px;
+    }
+}
+
+/* Title styling – matches the inline style you provided */
+.events-header-title {
+    width: 100%;
+    text-align: center;
+    color: #3E1928;
+    font-size: 24px;
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    margin: 0; /* Remove extra margins */
+}
+  
+/* Optional subtitle styling for consistency */
+.events-header-subtitle {
+    width: 100%;
+    text-align: center;
+    color: #3E1928;
+    font-size: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 400;
+    word-wrap: break-word;
+    margin: 16px 0 0 0; /* Adjust top margin as needed */
+}
+
+/* Container for the filter bar */
+.filter-bar {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Base styling for each filter item */
+.filter-item {
+    height: 44px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: #FBF6EF;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    color: #3E1928;
+}
+
+#search-bar-events-mobile {
+    display: none;
+}
+
+.filter-item:not(.red):hover {
+    background-color: #AD537C33 !important;
+}
+
+.filter-bar > .filter-item:first-child:hover {
+    background-color: #FBF6EF !important;
+}
+
+.filter-div {
+    display: inline-block;
+    height: 44px;
+    border-left: 1px dashed #A1A1A1;
+}
+
+/* Style for icon container: simply fixes the size */
+.icon-container {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Highly specify downloaded icon sizes
+.filter-icon {
+    width: 100%;  /* fills the container; adjust if necessary */
+    /* height: 100%;
+    object-fit: contain;
+} */
+
+.dropdown-container {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-icon {
+    padding: 4px 3px 2px 3px;
+}  
+
+.calendar-container {
+    display: none;
+    flex-direction: column;
+    width: 350px;
+    height: auto;
+    padding: 16px 12px;
+    box-shadow: 0px 4px 10px 0px rgba(173, 83, 124, 0.18);
+    font-family: "IBM Plex Sans", sans-serif;
+    background-color: #fefdfb;
+    z-index: 45;
+    box-sizing: border-box;
+}
+
+.nav-tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.nav-tab {
+    padding: 6px 16px;
+    color: #3e1928;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #fbf7f2;
+    border: none;
+    cursor: pointer;
+    height: 44px;
+    font-family: IBM Plex Sans;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+.nav-tab.active {
+    background-color: #ad537c;
+    color: #fefdfb;
+}
+
+.month-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 16px 0;
+    color: #3e1928;
+    font-family: "Anton", sans-serif;
+    font-size: 17px;
+}
+
+.nav-button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.weekday-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.weekday {
+    padding: 1.907px 7.628px;
+    color: #3e1928;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    width: 42px;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.calendar-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.calendar-day {
+    width: 42px;
+    height: 42px;
+    color: #3e1928;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: 0%;
+    text-align: center;
+}
+
+.calendar-day.faded {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.calendar-day.highlighted {
+    color: #ad537c;
+}
+
+.calendar-day.today {
+    background-color: #fbf7f2;
+    border-radius: 50%;
+}
+
+.calendar-day.selected {
+    background-color: #ad537c;
+    color: #fefdfb;
+    border-radius: 0%;
+}
+
+#calendar-btn {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none;
+}
+
+#event-type-btn {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none; 
+}
+
+#mobile-events-categories-btn {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none; 
+}
+
+#keywords-btn {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none;  
+}
+
+/* 1) Make the wrapper shrink‑wrap the button and establish positioning context */
+.filter-bar .calendar-wrapper {
+    position: relative;
+    display: inline-block;
+}
+  
+  /* 2) Pull the calendar panel absolutely under the button */
+.filter-bar .calendar-wrapper .calendar-container {
+    position: absolute;
+    top: 100%;       /* immediately below the button */
+    left: 0;         /* aligns left edges */
+    margin-top: 8px; /* small gap */
+    display: none;   /* JS will toggle this */
+    z-index: 1000;   /* above everything else in .main-container */
+}
+  
+  /* 3) Utility class to show it (instead of inline styles) */
+.filter-bar .calendar-wrapper .calendar-container.visible {
+    display: flex;   /* or block, depending on your inner layout */
+}
+
+.filter-bar-mobile .calendar-wrapper .calendar-container.visible {
+    display: flex;
+}
+
+.filter-bar-mobile {
+    display: none;
+}
+
+/* 1. Positioning context */
+.dropdown-wrapper {
+    position: relative;
+    display: inline‑block; /* shrink‑wrap to the button width */
+}
+  
+  /* 2. The dropdown panel itself */
+.dropdown-panel {
+    position: absolute;
+    top: 100%;      /* immediately below the button */
+    left: 0;
+    margin-top: 8px;/* small gutter */
+    max-height: 300px;  /* scroll if too tall */
+    overflow-y: auto;
+    background: #FBF6EF;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    display: none;  /* shown via JS */
+    z-index: 1000;
+}
+  
+  /* 3. Visible state */
+.dropdown-panel.visible {
+    display: block;
+}
+  
+  /* 4. Individual options */
+.dropdown-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-family: "IBM Plex Sans";
+    font-size: 16px;
+    color: #3E1928;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+}
+  
+.dropdown-option:hover {
+    background: rgba(173,83,124,0.1);
+}
+  
+  /* 5. Checkbox size reset */
+.dropdown-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #ad537c;
+    vertical-align: middle;
+}
+
+.dropdown-wrapper .dropdown-panel {
+    min-width: 100%;
+    width: auto;  
+}
+
+.dropdown-panel {
+    /* make scrollbar thinner and set thumb + track colors */
+    scrollbar-width: thin;
+    scrollbar-color: #AD537C #FBF6EF; /* thumbColor trackColor */
+}
+  
+  /* Chrome, Edge, Safari */
+.dropdown-panel::-webkit-scrollbar {
+    width: 4px;               /* width of the scrollbar */
+}
+.dropdown-panel::-webkit-scrollbar-track {
+    background: #FBF6EF;      /* match your panel background */
+}
+.dropdown-panel::-webkit-scrollbar-thumb {
+    background-color: #AD537C;/* your custom thumb color */
+    border-radius: 4px;       /* rounded corners if you like */
+}
+
+/* Dashed separator line */
+.dashed-separator {
+    border: none;
+    border-top: 1px dashed #B6B6B6;
+    margin-top: 16px;
+}
+
+.custom-dashed-separator {
+    width: calc(100vw - 24px - 24px); /* Make it span the container's width */
+    height: 0;   /* The div itself doesn't need height, the border provides it */
+    border-top: 1px dashed #B6B6B6;
+    box-sizing: border-box; /* Good practice */
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 32px;
+}
+
+.recent-events-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: flex-start;
+    margin: 0 0 48px;
+}
+
+.events-header {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 0px;
+    padding-top: 16px;
+    box-sizing: border-box;
+}
+
+#dashed-separator-footer {
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+@media (min-width: 900px) {
+    .recent-events-container .event-card {
+        flex-basis: 284px; /* The desired base width for your cards */
+        flex-grow: 0;      /* Prevent cards from growing to fill extra space on a line */
+        flex-shrink: 0;    /* Prevent cards from shrinking if container is too narrow (optional, might cause overflow) */
+    }
+}
+
+.recent-events-title {
+    margin-bottom: 0px;
+    font-family: Anton;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+.filter-labels {
+    position: relative;
+    margin: 16px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#filterLabelsContainer .dynamic-label {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(173, 83, 124, 0.5);
+    align-self: stretch;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 32px;
+    padding: 7px 8px;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 4px;
+    overflow: hidden;
+    justify-content: start;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #3E1928;
+}
+
+#filterLabelsContainer .dynamic-label:not([data-cancel-all]) {
+    background-color: rgba(247, 236, 242, 1);
+}
+
+#filterLabelsContainer .dynamic-label[data-cancel-all] {
+    background-color: rgba(251, 247, 242, 1);
+}
+
+#filterLabelsContainer .dynamic-label-close-btn::before,
+#filterLabelsContainer .dynamic-label-close-btn::after {
+  content: none;
+}
+
+#filterLabelsContainer .dynamic-label-close-btn {
+    background: url('https://cdn.jsdelivr.net/gh/AAria-11/harta-webflow@main/assets/x.svg') no-repeat center center;
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+}
+
+#range-bar-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;  /* center that little pill */
+    margin-top: 8px;          /* space above */
+}
+
+.calendar-clear-btn {
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+  /* the actual colored bar segment */
+.calendar-range-bar {
+    position: absolute;
+    height: 100%;
+    background-color: #AD537C;
+    border-radius: 2px;
+}
+
+.calendar-confirm-btn {
+    display: inline-flex;      /* shrink-wrap to its text */
+    align-items: center;
+    gap: 8px;                  /* space if you ever add an icon */
+    height: 44px;              /* fixed row-height */
+    padding: 0 16px;           /* horizontal padding */
+    background: #AD537C;
+    color: #F6F4EA;
+    border: none;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+}
+  
+.calendar-confirm-btn:hover {
+    filter: brightness(95%);
+}
+
+.event-card {
+    border-radius: 0px 30px 0px 0px;
+    background-color: #EAABC82E;
+
+    max-width: 284px;
+    overflow: hidden;
+    font-family:
+      IBM Plex Sans,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+a.event-card, 
+a.event-card:visited,
+a.event-card:hover, /* Ensure hover on the link itself doesn't add underline */
+a.event-card:active { /* Ensure active state on the link itself doesn't add underline */
+    text-decoration: none;
+    color: inherit; /* Allows child elements like .event-title to define their own colors */
+}
+
+  /* 1) Smooth transitions on the card, title and separator */
+.event-card {
+    transition: transform 0.2s ease, /* bump up */
+                box-shadow 0.2s ease;
+}
+  
+.event-card .event-title {
+    transition: color 0.2s ease;
+}
+
+/* 2) Hover state: bump up, recolor, re‑dash */
+.event-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+  
+.event-card:hover .event-title {
+    color: rgba(173, 83, 124, 1);  /* your global reddish accent */
+}
+  
+.event-image {
+    aspect-ratio: 1.58;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    min-height: 180px;
+}
+  
+.event-details {
+    margin-top: 8px;
+    min-height: 200px;
+    width: 100%;
+    padding-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    box-sizing: border-box;
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+  
+.event-info {
+    display: flex;
+    width: 100%;
+    align-items: start;
+    gap: 2px;
+    font-size: 14px;
+    color: rgba(90, 90, 90, 1);
+    font-weight: 400;
+    justify-content: start;
+}
+  
+.event-content {
+    min-width: 240px;
+    width: 100%;
+    flex: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+}
+  
+.event-category {
+    text-transform: uppercase;
+    margin: 0;
+}
+  
+.event-title {
+    color: rgba(62, 25, 40, 1);
+    font-size: 18px;
+    font-family:
+      Anton,
+      -apple-system,
+      Roboto,
+      Helvetica,
+      sans-serif;
+    margin: 0;
+    font-weight: normal;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+  
+.event-location {
+    display: flex;
+    width: 100%;
+    align-items: end;
+    gap: 2px;
+    font-weight: 500;
+    justify-content: start;
+}
+  
+.location-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 20px;
+    flex-shrink: 0;
+}
+  
+.location-address {
+    width: 248px;
+    margin: 0;
+}
+
+.results-count {
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin-top: 24px;
+    margin-bottom: 32px;
+}
+  
+.event-time {
+    margin-top: auto;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    color: rgba(173, 83, 124, 1);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.recent-events-separator {
+    border: none;
+    border-bottom: 3px dashed #AD537C;
+    width: 190px;      /* adjust to taste—just long enough under the text */
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 4px;
+    margin-bottom: 16px;
+}
+
+
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
+.footer-container {
+    background-color: #551C36;
+    padding-top: 24px;
+    padding-bottom: 32px;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-family: IBM Plex Sans, -apple-system, Roboto, Helvetica, sans-serif;
+    position: relative;
+    z-index: 0;               /* establish a new stacking context */
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+  
+  /* center & constrain inner content */
+.footer-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    position: relative;
+    z-index: 1;               /* everything inside here sits above the pink */
+}
+  
+/* ---- LEFT SIDE: TEXT + BUTTON ---- */
+.footer-text {
+    max-width: 600px;
+}
+  
+.footer-title {
+    font-family: Anton;
+    color: rgba(161, 161, 161, 1);
+    margin: 0;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 150%;
+    letter-spacing: -2.2%;
+}
+  
+.footer-highlight {
+    display: block;
+    margin-top: 8px;
+    color: rgba(251, 247, 242, 1);
+
+    font-family: Anton;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 150%;
+    letter-spacing: -2.2%;
+}
+  
+.footer-subtitle {
+    margin: 16px 0;
+    color: rgba(251, 247, 242, 1);
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 150%;
+    letter-spacing: 0%;
+}
+  
+.footer-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #25121B;
+    text-decoration: none;
+    border: 1px dashed #25121B;
+    border-radius: 2px;
+    background: transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.footer-button:hover {
+    background-color: #25121B;
+    color: #FBF7F2;
+}
+
+.footer-illustration {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end; /* center the image & icons horizontally */
+    margin-bottom: -44px;
+    position: relative;
+    z-index: 2;
+}
+  
+.footer-social {
+    position: static;     /* drop it back into the flex flow */
+    margin-top: 16px;     /* space between img and icons */
+    display: flex;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+}
+  
+.footer-image {
+    display: block;
+    position: relative;
+    width: 313px;
+    height: 206px;
+    opacity: 1;
+    z-index: 2;
+    margin-bottom: 44px;
+    margin-right: 40px;
+}
+
+.footer-social-icon {
+    width: 36px;
+    height: 36px;
+    background-color: #FFFDF6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.footer-social-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+  
+
+.about-us-container-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.about-us-section-title {
+    margin-top: 48px;
+    margin-bottom: 32px;
+    font-family: Anton;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 38.4px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    width: 100%;
+    color: #000000;
+}
+
+.about-us-section {
+    width: 684px;
+    font-family: IBM Plex Sans;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 27.2px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #25121B;
+}
+
+.about-us-image-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.about-us-image-container img {
+    margin: 0;
+}
+
+#partners {
+    width: 1200px;
+    margin-bottom: 10px;
+}
+
+#aria11 {
+    height: 65px;
+    margin-bottom: 32px;
+}
+
+#disclaimer-afcn {
+    margin-bottom: 24px;
+}
+
+.about-us-role {
+    font-weight: 400;
+}
+
+.about-us-name {
+    font-weight: 500;
+}
+
+#about-team {
+    margin-bottom: 16px;
+}
+
+.about-us-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 16px;
+    margin-right: 32px;
+    margin-top: 32px;
+}
+
+.character-image {
+    position: fixed;
+    right: -50px;
+    bottom: -70px;
+    height: 400px;
+    width: 400px;
+    z-index: 10;
+    background: transparent;
+}
+
+.articles-header {
+    position: absolute;
+    width: 100%;
+    height: 340px;
+    background-color: #FBF7F2;
+    border-top: 2px solid #AD537C;
+    box-shadow: 0px 4px 10px 0px #0000031A;
+    top: 73px;
+    z-index: 16;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.article-header-scroll-wrapper {
+    flex-grow: 1;
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.article-header-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.article-scroll-arrow {
+    background: #FBF7F2;
+    border: 1px solid #AD537C;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12);
+    flex-shrink: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+.article-scroll-arrow:hover {
+    background-color: #f2ede6;
+}
+.article-scroll-arrow.left-arrow {
+    margin-right: 24px;
+}
+.article-scroll-arrow.right-arrow {
+    margin-left: 24px;
+}
+
+.article-scroll-arrow.disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.article-card-container {
+    display: flex;
+    gap: 32px;
+}
+
+#article-card-container-bottom {
+    margin-left: 24px; 
+    margin-bottom: 24px;
+}
+
+.article-card {
+    width: 242px;
+    height: 282px;
+    background-color: #EAABC82E;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    box-sizing: border-box;
+    border: 1px dashed transparent;
+}
+
+.article-card:hover {
+    border: 1px dashed #AD537C;
+}
+
+.footnotes {
+    border: 2px dashed #AD537C;
+    margin-top: 48px;
+    padding: 16px;
+}
+
+.article-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.image-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #AD537C80; /* Semi-transparent background color */
+    pointer-events: none; /* Allow clicks to pass through */
+    z-index: 18; /* Ensure overlay is above the image */
+    object-fit: cover;
+}
+
+.article-card-content {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.article-card-title {
+    font-family: Anton;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #2A2829;
+    margin-bottom: 8px;
+}
+
+.article-card-description {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #AD537C;
+}
+
+.article-container {
+    position: absolute;
+    height: calc(100% - 74px);
+    width: 100%;
+    top: 74px;
+    background: #FBF7F2;
+    z-index: 16;
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-container::-webkit-scrollbar {
+    display: none;
+}
+
+.article-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.progress-container {
+    position: fixed;
+    width: 100%;
+    height: 6px;
+    background: #C3C3C3;
+    top: 74px;
+    z-index: 17;
+}
+
+.progress-bar {
+    height: 6px;
+    background-color: #AD537C;
+    width: 0%;
+    z-index: 17;
+}
+
+.article-content {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.article-title {
+    font-family: Anton;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 51.2px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #25121B;
+    margin-top: 48px;
+}
+
+.article-authors-date {
+    font-family: IBM Plex Sans;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 35.2px;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #25121B;
+}
+
+.article-authors-date .article-date {
+    display: inline-block;
+}
+
+.article-photo {
+    margin-top: 32px;
+    width: 1160px;
+    height: 700px;
+    display: block;
+}
+
+.article-photo-author {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    color: #5A5A5A;
+    margin-top: 16px;
+}
+
+.article-content-text {
+    width: 748px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.article-content-text p, .article-bibl-content p {
+    font-family: IBM Plex Sans;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 27.2px;
+    text-align: left;
+    margin-bottom: 0px;
+    margin-top: 16px;
+}
+
+.article-bibl-content p {
+    margin-top: 0px;
+}
+
+.article-section-title {
+    font-family: IBM Plex Sans;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 38.4px;
+    text-align: left;
+    color: #25121B;
+    margin-top: 48px;
+    margin-bottom: 8px;
+}
+
+.article-intro-text {
+    font-family: IBM Plex Sans;
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 35.2px;
+    text-align: left;
+    color: #25121B;
+    margin-top: 40px;
+}
+
+.article-bibl-title {
+    font-family: IBM Plex Sans;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 27.2px;
+    text-align: left;
+    margin-top: 48px;
+}
+
+#image-gallery-container-article {
+    margin-top: 48px;
+}
+
+.num-pics-label {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #FBF7F2;
+    padding: 5px 10px;
+    font-family: IBM Plex Sans;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18.2px;
+    text-align: left;
+    color: #25121B;
+}
+
+#num-pics-label-article {
+    display: inline-block;
+}
+
+.read-more-share-article {
+    margin-bottom: 12px;
+    margin-top: 48px;
+}
+
+.read-more-share-article, .read-more-label-container-article {
+    margin-left: 24px;
+}
+
+.continue-read-container {
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
+    margin-bottom: 24px;
+}
+
+.dashed-line {
+    flex-grow: 1;
+    margin-left: 10px; /* Adjust as needed for spacing */
+    border: 1px dashed #A1A1A1
+}
+
+.continue-read-text {
+    font-family: Anton;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 36.13px;
+    text-align: left;
+    color: #25121B;
+}
+
+#scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    cursor: pointer;
+    z-index: 18;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+#scrollTopBtn img {
+    display: block;
+    width: 60px;
+    height: 60px;
+}
+
+#article-category-desktop {
+    align-self: flex-start;
+    margin-bottom: 0px;
+    top: 957px;
+    position: absolute;
+    left: 24px;
+}
+
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+.mobile-nav {
+    background: #FBF7F2;
+    width: 100%;
+    height: 62px;
+    padding: 8px 16px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    border-width: 0.5px 0px 0.5px 0px;
+    border-style: solid;
+    border-color: #25121B;
+    box-shadow: 0px 4px 10px 0px #0000001A;
+    z-index: 25;
+}
+
+.mobile-nav-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    user-select: none;
+    cursor: default;
+    box-shadow: none;
+    outline: none;
+}
+
+.no-select {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
+.mobile-menu-button {
+    position: relative;
+    right: 0;
+    background: none;
+    border: none;
+}
+
+.mobile-nav-title {
+    font-family: Anton;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 33px;
+    letter-spacing: -0.022em;
+    text-align: left;
+    color: #25121B;    
+}
+
+.mobile-nav-subtitle {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.03em;
+    text-align: left;
+    color: #AC537C;
+    margin-top: -10px;
+}
+
+.mobile-nav-active {
+    background-color: #AD537C;
+    color: #F6F4EA;
+    border-color: #F6F4EA;
+}
+
+.mobile-menu {
+    position: absolute;
+    width: 100%;
+    height: calc(100svh - 62px);
+    top: 62px;
+    background-color: #AD537C;
+    box-sizing: border-box;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 26;
+}
+
+.language-switch {
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20.8px;
+    text-align: left;
+    color: #F6F4EA;
+    margin-bottom: 64px;
+}
+
+.language-switch button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
+}
+
+#langro {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: IBM Plex Sans;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 26px;
+    text-align: left;    
+    color: #F6F4EA;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-button .icon {
+    float: right; /* Position the icon to the right */
+}
+
+#mobile-engage-button {
+    margin-bottom: 130px;
+}
+  
+.menu-footer {
+    text-align: left;
+    font-family: IBM Plex Sans;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    color: #F6F4EA;
+    margin-top: auto;
+}
+
+.mobile-menu-logo img {
+    width: 46.92px;
+    height: 57.27px;
+}
+
+.foot-mission-partners {
+    padding-top: 24px;
+    font-weight: 400;
+    padding-bottom: 8px;
+    font-size: 16px;
+}
+
+.mobile-toolbar {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    transform: none;
+    width: 100%;
+    height: 60px;
+    padding: 0;
+    background-color: #FBF6EF;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.08);
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #CDCDCD;
+    z-index: 25;
+}
+
+.mobile-toolbar .toolbar-separator {
+    display: none;
+}
+
+.mobile-toolbar .toolbar-button {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-toolbar .toolbar-button img {
+    width: 32px;
+    height: 32px;
+}
+
+.mobile-toolbar .toolbar-button.active img {
+    filter: invert(44%) sepia(21%) saturate(1292%) hue-rotate(301deg) brightness(89%) contrast(88%);
+}
+
+#mobile-events-btn {
+    margin-right: 0px;
+}
+
+#mobile-slider {
+    transform: translateY(+1px);
+}
+
+.mobile-panel-close-button {
+    display: none;
+}
+
+.mobile-toolbar,
+.mobile-only-panel {
+    display: none;
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: scroll;  /* Enable horizontal scrolling */
+    scroll-snap-type: x mandatory; /* Ensure snapping behavior */
+    height: 75%;
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 24px;
+    box-sizing: border-box;
+}
+
+.scroll-container img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto; /* Center the image horizontally and vertically */
+    scroll-snap-align: center; /* Align images in the center of the viewport */
+    flex: 0 0 100%; /* Do not grow, but allow shrinking */
+    object-fit: contain;
+}
+
+.engage-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+    background: #FBF6EF;
+    border: 1px solid #E4E4E4;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 24px 8px 24px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 10px 2px rgba(173, 83, 124, 0.2);
+}
+
+.engage-image img {
+    transform: rotate(2deg);
+}
+
+.engage-close-button {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.engage-sparkles {
+    width: 61px;
+    height: 61px;
+    background-image: url('https://cdn.jsdelivr.net/gh/AAria-11/harta-webflow@main/assets/sparkles.svg');
+    background-repeat: no-repeat;
+    margin-bottom: 24px;
+}
+
+.engage-section {
+    text-align: left;
+}
+
+.engage-title {
+    font-family: 'Anton', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #25121B;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.engage-container p {
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    font-style: Medium;
+    font-size: 17px;
+    line-height: 160%;
+    letter-spacing: 0%;
+    color: #25121B;
+    margin-top: 0;
+    margin-bottom: 24px;
+}
+
+.engage-image {
+    width: 476px;
+    height: 274px;
+    margin: 32px 0;
+    justify-content: center;
+}
+
+.engage-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.engage-button-container {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+}
+
+.engage-button-shadow {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 100%;
+    height: 100%;
+    background: #E4E4E4;
+    z-index: -1;
+    transition: background-color 1s, border-color 1s;
+    border: 0.5px dashed #25121B;
+}
+
+.engage-button {
+    display: inline-block;
+    padding: 10px 0;
+    width: 265px;
+    text-align: center;
+    text-decoration: none;
+    font-family: IBM Plex Sans;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 22.1px;
+    color: #25121B;
+    background-color: #f9f7f4;
+    border: 0.5px dashed #25121B;
+    position: relative;
+    z-index: 1;
+    transition: color 1s;
+}
+
+/* --- Event Detail Panel Specific Styles --- */
+.event-detail-panel {
+    position: fixed; 
+    top: 74px; /* Height of your .nav-container */
+    left: 0; 
+    width: 100%; 
+    height: calc(100vh - 74px); 
+    background-color: #FBF7F2; 
+    z-index: 999; 
+    overflow-y: auto;
+    transition: transform 0.4s ease-in-out; 
+    transform: translateX(100%); 
+    display: flex; 
+    flex-direction: column; 
+    box-sizing: border-box;
+}
+
+/* Basic styling for the new paragraphs inside the event detail description */
+.event-detail-panel .event-detail-description p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: left;
+    color: #25121B;
+    margin-top: 0;
+    margin-bottom: 1em; /* Standard spacing between paragraphs */
+}
+
+/* No top margin for the very first paragraph in the container */
+.event-detail-panel .event-detail-description p:first-child {
+    margin-top: 0;
+}
+
+.event-detail-panel .event-detail-description p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Ensure the button is clickable and styled correctly (it inherits from .read-more-text-btn) */
+#eventDetailDescReadMoreBtn {
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.event-detail-panel .footer-container {
+    margin-bottom: 32px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 0px;
+}
+
+.event-detail-panel.visible {
+    transform: translateX(0%); 
+}
+
+/* Wrapper for the top section (image + main details) */
+.event-detail-main-row {
+    display: flex;
+    flex-direction: row; 
+    width: 100%; /* Ensure it spans full width of the panel */
+    /* Height is determined by image column, text column will scroll if taller */
+    flex-shrink: 0; 
+    /* border-bottom: 1px solid #e0e0e0; /* Optional separator for clarity */
+}
+
+.event-detail-header { 
+    position: relative;
+    width: 717px; 
+    height: 590px;
+    flex-shrink: 0; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    margin-top: 32px;
+    margin-left: 24px; 
+    background-color: #000000;
+}
+
+.event-detail-header > img.event-detail-header-image-tag {
+    width: 100%;
+    height: 100%;
+}
+
+.event-detail-categories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.event-detail-close-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    z-index: 2;
+    margin-right: 8px;
+}
+
+.event-detail-close-button img {
+    width: 18px; 
+    height: 18px; 
+}
+
+/* Main content area (right side on desktop) */
+.event-detail-content-wrapper {
+    flex-grow: 1; 
+    padding-left: 46px;
+    padding-right: 24px;
+    padding-top: 32px; 
+    min-height: 361px;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans', sans-serif; 
+    color: #25121B; 
+}
+
+/* Styling for the "Alte evenimente..." section wrapper */
+.event-detail-related-section-wrapper {
+    padding: 0px 30px 24px 30px; /* Top padding from section title, bottom for scroll end */
+    box-sizing: border-box;
+    width: 100%; /* Ensure it takes full width of the panel */
+}
+
+
+/* --- Styling for elements within .event-detail-content-wrapper --- */
+/* (Many of these are to match .read-more-container styles) */
+
+.event-detail-categories {
+    flex-grow: 1; /* Allows categories to take available width */
+}
+.event-detail-categories .category-tag {
+    display: inline-block; 
+    border: 0.5px solid; 
+    padding: 2px 4px; 
+    border-radius: 2px 0px 0px 0px; 
+    margin-right: 6px; 
+    margin-bottom: 6px; 
+    text-transform: uppercase;
+    color: #3E1928;
+    font-size: 14px;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+.event-detail-title { 
+    font-family: 'Anton', sans-serif; font-size: 24px; font-weight: 400; 
+    line-height: 1.08; letter-spacing: -0.02em; color: #3E1928; 
+    margin-top: 0; margin-bottom: 8px; 
+}
+.event-detail-quote { 
+    font-family: 'IBM Plex Sans', sans-serif; font-style: italic; font-size: 16px; 
+    color: #5A5A5A; margin-bottom: 20px; padding-left: 15px; border-left: 3px solid #AD537C; 
+}
+.event-detail-info-item { 
+    display: flex; align-items: center;
+    font-family: 'IBM Plex Sans', sans-serif; 
+    font-size: 16px; 
+    font-weight: 400; 
+    line-height: 1.3;
+    color: #585858;
+    padding-bottom: 32px;
+    border-bottom: 1px #3E1928 dashed; 
+}
+.event-detail-info-item img { 
+    width: 16px; 
+    height: 20px; 
+    margin-right: 8px; 
+}
+
+#eventDetailDateTimeItem {
+    color: #3E1928;
+    font-size: 18px;
+    font-family: 'IBM Plex Sans', sans-serif; /* Ensure font consistency */
+    font-weight: 500;
+    padding-top: 32px; /* Keep existing top padding */
+    /* The padding-bottom and border-bottom are managed by .event-detail-info-item default */
+    display: flex; /* Use flex to arrange original content and button */
+    flex-direction: column; /* Stack them vertically */
+    align-items: flex-start; /* Align items to the start (left) */
+}
+
+/* Wrapper for the original date/time icon and text */
+.datetime-original-content {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px; /* Space between date/time and the ticket button */
+}
+
+#eventDetailDateTimeItem .datetime-original-content img { /* Specificity for the icon within */
+    width: 32px;
+    height: 32px;
+    margin-right: 8px; /* Keep margin for the icon */
+}
+
+#eventDetailTicketButtonContainer .engage-button-shadow {
+    background: #AD537C; /* Set the desired permanent background color */
+}
+
+.event-detail-ticket-button-container {
+    max-width: 341px; /* Max-width from .engage-button */
+    width: 100%; /* Make it responsive within its new parent */
+    margin-top: 8px; /* Add some space above the button */
+}
+
+#eventDetailLocationText {
+    color: #717171;
+    font-size: 16px;
+    font-family: IBM Plex Sans;
+    font-weight: 500;
+    text-decoration: underline;
+    word-wrap: break-word;
+}
+
+/* Section titles within the main content area */
+.event-detail-content-wrapper > .event-detail-section-title { 
+    font-family: 'Anton', sans-serif; font-size: 24px; font-weight: 400;
+    line-height: 1.08; letter-spacing: -0.02em; color: #3E1928; 
+    margin-top: 32px; margin-bottom: 8px; 
+    padding-bottom: 10px;
+}
+/* Section title for "Alte evenimente" which is now in its own wrapper */
+.event-detail-related-section-wrapper > .event-detail-section-title {
+     font-family: 'Anton', sans-serif; font-size: 24px; font-weight: 400;
+    line-height: 1.08; letter-spacing: -0.02em; color: #3E1928; 
+    margin-top: 24px; /* Adjusted top margin as it's a new section */
+    margin-bottom: 24px; 
+    border-bottom: 1px dashed #B6B6B6; 
+    padding-bottom: 10px;
+}
+
+.event-detail-description {
+    border-bottom: 1px #3E1928 dashed;
+}
+
+#eventDetailOrganizerSocialLinks {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.event-detail-description p, 
+.event-detail-organizer-description p { 
+    font-family: 'IBM Plex Sans', sans-serif; 
+    font-size: 17px; 
+    font-weight: 400; 
+    line-height: 1.6;
+    text-align: left; 
+    color: #25121B; 
+    margin-top: 0;
+    margin-bottom: 1em; 
+}
+
+#eventDetailOrganizerDescription {
+    color: #AD537C;
+    font-size: 17px;
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    line-height: 23.80px;
+    word-wrap: break-word;
+    margin-left: 40px;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.organizer-description-arrow-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 0.2em;
+    vertical-align: sub;
+}
+
+#eventDetailDescriptionPreview {
+}
+
+.event-detail-description .read-more-text-btn { 
+    color: #AD537C;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    display: block;
+    margin-top: 8px;
+    text-align: left;
+}
+.event-detail-description .additional-text { display: none; }
+.event-detail-description .additional-text.visible { display: inline; }
+
+.organizer-name-line {
+    display: flex;
+    align-items: center; /* Vertically aligns the icon and the text */
+    gap: 8px; /* Space between the icon and the name */
+    cursor: pointer;
+}
+
+.organizer-title-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.event-detail-organizer-name { 
+    font-family: 'IBM Plex Sans', sans-serif; 
+    font-weight: 600; 
+    font-size: 20px; 
+    color: #AD537C; 
+    text-decoration: underline;
+    line-height: 1.3;
+}
+
+.event-detail-organizer {
+    margin-bottom: 24px;
+}
+
+.event-detail-organizer .read-more-social-links { 
+    display: flex; 
+    justify-content: flex-start; 
+    align-items: center;
+    margin-top: 12px; 
+    margin-bottom: 12px;
+    padding-top: 0px;
+    padding-bottom: 17px;
+    gap: 16px;
+    border-bottom: none;
+    border-top: none;
+}
+.event-detail-organizer .read-more-social-link { 
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
+    text-align: center; color: #AD537C; text-decoration: none; font-size: 16px; 
+    font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; min-height: auto; margin: 0; 
+}
+ .event-detail-organizer .read-more-social-icon { 
+    width: 32px; height: 32px; 
+    background-color: rgba(173, 83, 124, 0.09);
+    border-radius: 50%; 
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2px; 
+}
+.event-detail-organizer .read-more-social-icon img { 
+    width: 18px; 
+    height: 18px; 
+}
+.event-detail-organizer .read-more-social-link:hover .read-more-social-icon { 
+     box-shadow: 0 0 0 1px #AD537C; 
+     background-color: rgba(173, 83, 124, 0.20);
+}
+.event-detail-organizer .social-text { display: none; }
+.event-detail-share-text { 
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 16px; font-weight: 600;
+    line-height: 1.3; color: #5A5A5A; margin-bottom: 14px;
+}
+.event-detail-share .fb-share-button { margin-bottom: 10px; }
+
+/* Related Events Section (inside .event-detail-related-section-wrapper) */
+.event-detail-related-events-container {
+    display: flex; 
+    gap: 20px;
+    overflow-x: auto; 
+}
+
+.archive-header-image {
+    width: 1232px !important;
+    height: 392px !important;
+}
+  
+@media (max-width: 550px) {
+    .archive-header-image {
+        width: 370px !important;
+        height: 137px !important;
+    }
+
+    #archive-container {
+        z-index: 20;
+    }
+}
+
+#archive-container .archive-timeline {
+    position: relative;
+    padding-left: 56px;
+    max-width: 800px;
+    margin: 48px auto 0 auto;
+}
+
+#archive-container .archive-timeline::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: 24px;
+    width: 2px;
+    background-image: linear-gradient(to bottom, #AD537C 4px, transparent 4px);
+    background-size: 2px 8px;
+}
+
+.archive-entry {
+    position: relative;
+    margin-bottom: 48px;
+}
+
+.archive-timeline-marker {
+    position: absolute;
+    top: -3px;
+    left: -41px;
+    width: 18px;
+    height: 18px;
+    background-color: #AD537C;
+    border: 3px solid #FBF7F2;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.archive-date {
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin-bottom: 4px;
+}
+
+.archive-title {
+    font-family: Anton;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 24px;
+    line-height: 160%;
+    letter-spacing: -2%;
+    margin-bottom: 4px; 
+}
+
+.archive-subtitle {
+    font-family: IBM Plex Sans;
+    font-weight: 400;
+    font-style: Italic;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%; 
+    margin-bottom: 8px; 
+}
+
+.archive-main-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.archive-description p {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #25121B;
+    margin: 0 0 1em 0;
+}
+
+.archive-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.thumbnail-archive {
+    width: 150px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.thumbnail-archive img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.thumbnail-archive img:hover {
+    transform: scale(1.05);
+}
+
+.link-decorator {
+    color: #AD537C;
+    text-decoration: underline;
+}
+
+@media (max-width: 550px) {
+    .mapboxgl-ctrl-bottom-left,
+    .mapboxgl-ctrl-bottom-right {
+        bottom: 72px !important
+    }
+
+    #archive-container .archive-timeline {
+        padding-left: 40px;
+        margin-top: 48px;
+    }
+
+    #archive-container .archive-timeline::before {
+        left: 16px;
+    }
+
+    .archive-timeline-marker {
+        left: -33px;
+        width: 16px;
+        height: 16px;
+    }
+  
+    .archive-gallery {
+        display: none;
+    }
+
+    .archive-gallery-mobile {
+        margin-top: 24px;
+        cursor: pointer;
+    }
+
+    .archive-gallery-mobile .main-image {
+        height: 240px; 
+        width: 100%;
+        position: relative;
+    }
+
+    .archive-gallery-mobile .main-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+
+@media (min-width: 1000px) {
+    .engage-button-container:hover .engage-button-shadow {
+        background-color: #AD537C;
+        border-color: #AD537C;
+    }
+
+    .engage-button-container:hover .engage-button {
+        color: #AD537C;
+    }
+}
+
+@media (max-width: 550px) {
+    .mobile-nav {
+        display: flex;
+    }
+
+    #mobileSelectAllCheckbox {
+        margin-bottom: 16px;
+    }
+
+    .search-bar input[type="search"] {
+        width: 100%;
+    }
+
+    .mobile-toolbar {
+        display: flex;
+    }
+
+    .nav-container {
+        display: none;
+    }
+
+    .side-panel {
+        display: none;
+        z-index: 20;
+        width: 100%;
+        height: calc(100svh - 63px - 60.2px);
+        top: 62px;
+        overflow-y: auto;
+    }
+
+    .about-us-container {
+        position: absolute;
+        height: calc(100svh - 63px - 60.2px);
+        width: 100%;
+        top: 62px;
+        background: #FBF7F2;
+        z-index: 20;
+        overflow-y: auto;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-rows: 1fr auto;
+    }
+
+    .about-us-container-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .about-us-section-title {
+        margin-top: 32px;
+        margin-bottom: 32px;
+        font-family: Anton;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 38.4px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        width: 100%;
+        color: #000000;
+    }
+
+    .about-us-section {
+        width: 343px;
+        font-family: IBM Plex Sans;
+        font-size: 17px;
+        font-weight: 500;
+        line-height: 27.2px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: #25121B;
+    }
+
+    .about-us-close-button {
+        display: none;
+    }
+
+    .character-image {
+        height: 350px;
+        width: 350px;
+        z-index: 20;
+        background: transparent;
+        grid-row: 2;
+        position: relative;
+        bottom: 0;
+        right: 0;
+    }
+
+    #about-team {
+        margin-bottom: 0px;
+    }
+
+    .side-panel-title {
+        display: flex;
+        justify-content: space-between; /* Aligns children to each end */
+        align-items: center; /* Aligns children vertically in the center */
+    }
+
+    .mobile-panel-close-button {
+       display: block;
+       border: none;
+       background: none;
+       cursor: pointer;
+       padding: 16px;
+       padding-right: 20px;
+    }
+
+    #mobileObjList {
+        color: #3E1928;
+        text-align: left !important;
+        font-size: 18px;
+        font-weight: 500;
+        margin-left: 24px !important;
+        padding-left: 0px !important;
+        padding-top: 8px !important;
+        padding-bottom: 16px !important;
+    }
+
+    #mobileGalleryContainer {
+        padding: 0 24px;
+        box-sizing: border-box;
+    }
+
+    #mobileGalleryContainer .gallery-item {
+        width: 100%;
+        height: auto;
+        min-height: 67px;
+    }
+
+    .mobile-panel-close-button img {
+        width: 18px;
+        height: 18px;
+     }
+
+    #obiective-panel {
+        overflow: auto;
+        height: calc(100vh - 62px + 453px);
+        flex: none;
+    }
+
+    #custom-bulleted-list {
+        margin-top: 0px;
+    }
+
+    #fb-share-read-more-mobile {
+        margin-bottom: 16px;
+    }
+
+    #gallery-container {
+        max-height: 100%;
+    }
+
+    #filtre-organizatii {
+        margin-top: 0px;
+    }
+
+    .section-title {
+        margin-bottom: 16px;
+    }
+
+    button {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .clasare-container {
+        justify-content: left;
+        margin-left: 36px;
+    }
+
+    #filtre-sep-line {
+        display: none;
+    }
+
+    #cancelbtn {
+        display: none;
+    }
+
+    .button-clasare {
+        margin: 0px 8px;
+    }
+
+    .dynamic-label-container {
+        top: 96px;
+        left: 0px;
+        height: 40px;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-left: calc(50vw - 143px);
+        box-sizing: border-box;
+        padding-right: 16px;
+        padding-left: 16px;
+        z-index: 15;
+    }
+
+    .dynamic-label-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .dynamic-label {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .card {
+        width: 312px;
+        height: 226px;
+        padding: 16px 16px;
+    }
+
+    .card::after {
+        clip-path: polygon(4% var(--edge-size), var(--edge-size) 4%, var(--edge-size) calc(92% - var(--edge-size)), 45% calc(92% - var(--edge-size)), 50% calc(98% - var(--edge-size)), 55% calc(92% - var(--edge-size)), calc(100% - var(--edge-size)) calc(92% - var(--edge-size)), calc(100% - var(--edge-size)) 4%, calc(96% - var(--edge-size)) var(--edge-size));
+    }
+
+    .card-title {
+        font-family: IBM Plex Sans;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 23.4px;
+        text-align: left;
+    }
+
+    .card-read-more {
+        margin-bottom: 0px;
+    }
+
+    .card-text {
+        margin-bottom: 16px;
+    }
+
+    .card-social-links {
+        display: none;
+    }
+
+    #card-sep-line {
+        display: block;
+        margin-top: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    .card-address {
+        margin-bottom: 16px;
+    }
+
+    .card-read-more {
+        margin-bottom: 16px;
+    }
+
+    .read-more-close-button-mobile {
+        border: none; /* Removes the border */
+        background: none; /* Removes the background */
+        cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
+        z-index: 20; /* Ensure it's above other content */
+        position: absolute;
+        top: 10px;
+        right: 0px;
+    }
+
+    .read-more-close-button-mobile img {
+        display: block;
+        width: 32px;
+        height: 32px;
+    }
+
+    .read-more-category {
+        margin-top: 24px;
+        align-self: flex-start;
+    }
+
+    .read-more-address {
+        margin-bottom: 24px;
+    }
+
+    .read-more-social-links {
+        margin-bottom: 24px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .read-more-text {
+        margin-bottom: 24px;
+    }
+
+    .photosby {
+        margin-top: 0px;
+        margin-bottom: 24px;
+    }
+
+    #copy-link {
+        display: none;
+    }
+
+    .read-more-section-title {
+        font-size: 22px;
+    }
+
+    .image-gallery-container {
+        width: 100%;
+        height: 361px;
+        position: relative;
+        margin-top: 24px;
+    }
+
+    .main-image {
+        height: 100%;
+        margin-bottom: 0px;
+        position: relative;
+    }
+
+    .lightbox-prev {
+        display: none;
+    }
+
+    .lightbox-next {
+        display: none;
+    }
+
+    .icon-buttons {
+        display: none;
+    }
+
+    .side-panel-btn {
+        display: none;
+    }
+
+    #eventDetailDateTimeItem .datetime-original-content img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .zoom-button-container {
+        display: none;
+    }
+
+    .logo-container {
+        display: none;
+    }
+
+    .read-more-container {
+        display: none;
+    }
+
+    .lightbox {
+        display: none;
+        z-index: 30;
+        height: 100svh;
+    }
+
+    .lightbox-counter {
+        z-index: 30;
+        font-size: 16px;
+        line-height: 20.8px;
+        right: 16px;
+    }
+
+    .lightbox-close {
+        right: 12px;
+    }
+
+    .hidden-element {
+        left: 0px;
+    }
+
+    .articles-list {
+        color: #F6F4EA;
+        padding: 0px 10px;
+        flex-direction: column;
+        margin-bottom: 24px;
+    }
+
+    .articles-list a {
+        color: #F6F4EA;
+        text-decoration: none;
+        margin-bottom: 16px;
+        font-family: IBM Plex Sans;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 21.93px;
+        letter-spacing: -0.02em;
+        text-align: left;
+    }
+
+    .articles-list a:last-child {
+        margin-bottom: 0px;
+    }
+
+    #engage-container-mobile {
+        display: none;
+        position: fixed;
+        z-index: 30;
+        flex-direction: column;
+        box-sizing: border-box;
+        background: #FBF6EF;
+        top: 62px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 63px - 60.2px);
+        overflow-y: auto;
+    }
+
+    #engage-container-mobile > .mobile-page-close-button {
+        position: relative;
+        align-self: flex-end;
+    }
+
+    #engage-container-mobile .engage-mobile-content {
+        overflow-y: visible;
+        padding: 24px 32px;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    #engage-container-mobile .mobile-page-title {
+        margin: 0;
+        padding: 16px;
+        font-size: 20px;
+        font-family: 'Anton', sans-serif;
+    }
+
+    #engage-container-mobile .engage-sparkles {
+        background-image: url('https://cdn.jsdelivr.net/gh/AAria-11/harta-webflow@main/assets/sparkles-mob.svg');
+        width: 40px;
+        height: 40px;
+    }
+
+    #engage-container-mobile .engage-section {
+        width: 100%;
+    }
+
+    #engage-container-mobile .engage-title {
+        font-size: 20px;
+    }
+
+    #engage-container-mobile p {
+        font-family: IBM Plex Sans;
+        font-weight: 400;
+        font-style: Medium;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: -2%;
+    }
+
+    #engage-container-mobile .engage-image {
+        width: 100%;
+        max-width: 340px;
+        height: auto;
+        margin: 24px auto;
+    }
+
+    #engage-container-mobile .engage-button {
+        width: 100%;
+    }
+
+    .engage-close-button {
+        -webkit-tap-highlight-color: transparent;
+        padding: 16px;
+        transition: color 0.5s;
+    }
+
+    .engage-button-shadow.clicked {
+        background-color: #AD537C !important;
+        border-color: #AD537C !important;
+    }
+
+    .engage-button.clicked {
+        color: #AD537C !important;
+    }
+
+    .mapboxgl-ctrl-geolocate {
+        width: 34px !important;
+        height: 34px !important;
+        right: 0px;
+        top: calc(100svh - 250px);
+        transform: translateX(10%);
+        border-radius: 12px !important;
+    }
+
+    .article-container {
+        height: calc(100svh - 63px - 60.2px);
+        width: 100%;
+        top: 62px;
+        padding-left: 16px;
+        padding-right: 16px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .progress-container {
+        height: 5px;
+        top: 62px;
+        left: 0px;
+    }
+    
+    .progress-bar {
+        height: 5px;
+        left: 0px;
+    }
+
+    #fb-share-article {
+        margin-left: 0px;
+        margin-bottom: 8px;
+    }
+
+    .article-title {
+        font-family: Anton;
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 35.2px;
+        margin-top: 32px;
+    }
+
+    .article-authors-date {
+        font-size: 17px;
+        line-height: 27.2px;
+    }
+
+    .article-authors-date .article-date {
+        display: block;
+        font-size: 14px;
+        line-height: 22.4px;
+    }
+
+    .article-photo {
+        margin-top: 24px;
+        width: 100%;
+        height: 240px;
+    }
+    
+    .article-photo-author {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22.1px;
+        margin-top: 8px;
+    }
+
+    #article-category-mobile {
+        align-self: flex-start;
+        margin-bottom: 0px;
+        top: auto;
+        left: auto;
+        font-family: IBM Plex Sans;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18.2px;
+        text-align: left;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .article-content-text {
+        width: 100%;
+    }
+
+    .article-section-title {
+        font-size: 20px;
+        line-height: 32px;
+        margin-bottom: 0px;
+        margin-top: 32px;
+    }
+
+    .article-intro-text {
+        font-size: 20px;
+        line-height: 32px;
+        margin-top: 24px;
+    }
+
+    .article-bibl-title {
+        margin-top: 32px;
+        margin-bottom: 16px;
+    }
+
+    .read-more-share-article {
+        margin-top: 48px;
+    }
+    
+    .read-more-share-article, .read-more-label-container-article {
+        margin-left: 0px;
+    }
+
+    .continue-read-container {
+        margin-left: 0px;
+        margin-top: 32px;
+    }
+
+    .continue-read-text {
+        font-size: 22px;
+        line-height: 33.12px;
+    }
+
+    .article-card-container {
+        margin-left: 0px;
+        gap: 16px;
+    }
+
+    .article-card-title {
+        font-size: 20px;
+        line-height: 22px;
+    }
+
+    #article-card-container-bottom {
+        margin-left: 0px;
+    }
+
+    #scrollImg {
+        content: url('https://cdn.jsdelivr.net/gh/AAria-11/harta-webflow@main/assets/ArrowDownMobile.svg');
+    }
+
+    #scrollTopBtn {
+        bottom: 70px;
+    }
+
+    #scrollTopBtn img {
+        width: 44px;
+        height: 44px;
+    }
+    
+    #article-thumbnails {
+        display: none;
+    }
+
+    #partners {
+        width: 112px;
+    }
+
+    .events-container {
+        height: calc(100% - 62px - 61px);
+        top: 62px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-bar {
+        display: none;
+    }
+
+    .events-header-top {
+        margin-bottom: 32px;
+        margin-top: 56px;
+    }
+
+    /* Mobile-only filter bar */
+    .filter-bar-mobile {
+        display: flex;
+        flex-direction: row;       /* ← row instead of column */
+        gap: 8px;
+    }
+
+    .filter-bar-mobile > .dropdown-wrapper,
+    .filter-bar-mobile > .calendar-wrapper {
+        flex: 1;
+    }
+
+    /* ensure the inner button fills its wrapper */
+    .filter-bar-mobile .filter-item {
+        width: 100%;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;   /* center the content horizontally */
+    }
+
+    #search-bar-events-mobile {
+        display: flex;
+        margin: 16px 0px;
+    }
+
+    .recent-events-container {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        grid-template-columns: none;
+        align-items: center;
+    }
+
+    .recent-events-container .event-card {
+        width: 100%;
+        max-width: none;
+        height: 330px;
+    }
+
+    .recent-events-container .event-card .event-image {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+    }
+
+    .event-details {
+        min-height: 0;
+    }
+
+    .footer-container {
+        background-color: #551C36;
+        border-radius: 5px;
+        padding: 24px 16px;
+        padding-bottom: 0px;
+    }
+    
+    .footer-inner {
+        /* stack everything vertically */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .footer-text {
+        /* full-width text block */
+        width: 100%;
+    }
+
+    .footer-title {
+        /* tighten your headings a bit */
+        margin-bottom: 8px;
+    }
+
+    .footer-subtitle {
+        margin-bottom: 32px;
+    }
+
+    .engage-button-container {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .engage-button {
+        /* full-width “front” button */
+        display: block;
+        width: 100%;
+        background: #F9F7F4;
+        color: #AD537C;
+        border: 0.5px dashed #25121B;
+        z-index: 1;
+    }
+
+    .engage-button-shadow {
+        /* make that offset “shadow” your accent color */
+        background-color: #AD537C;
+        border-color: #AD537C;
+        bottom: -8px;
+        right: -8px;
+    }
+
+    .footer-illustration {
+        /* push the illustration down under the button */
+        margin-top: 24px;
+    }
+
+    .footer-image {
+        width: 308px;
+        height: 206px;
+        opacity: 1;
+        margin-bottom: 0px;
+        margin-right: 0px;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 16px;
+        margin-top: 16px !important;
+        justify-content: center;
+    }
+
+    .footer-container .footer-inner .footer-illustration {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* remove the desktop “pull-up” */
+        margin-bottom: 0;
+    }
+
+    /* Give the icons some breathing room under the image */
+    .footer-container .footer-inner .footer-illustration .footer-social {
+        margin-top: 24px;
+    }
+
+    .filter-bar-mobile .dropdown-wrapper,
+    .filter-bar-mobile .calendar-wrapper {
+        flex: 1;         /* each takes half the row (minus the gap) */
+        min-width: 0;    /* allow the flex algorithm to shrink them equally */
+        position: relative;  /* create a positioning context */
+    }
+
+    /* pull the calendar panel out of the flow */
+    .filter-bar-mobile .calendar-wrapper .calendar-container {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 8px;
+        display: none;     /* JS toggles this to .visible */
+        z-index: 1000;
+    }
+
+    /* when you toggle it on… */
+    .filter-bar-mobile .calendar-wrapper .calendar-container.visible {
+        display: flex;     /* or block, per your calendar layout */
+    }
+
+    .calendar-backdrop {
+        position: fixed;
+        top: 62px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #3E192833;
+        z-index: 21;
+    }
+
+    .events-container {
+        z-index: 20;
+    }
+
+    .mobile-nav {
+        z-index: 25;
+    }
+
+    .filter-bar-mobile .calendar-wrapper,
+    .filter-bar-mobile .dropdown-wrapper {
+        position: relative;    /* create a stacking context */
+        z-index: 22;           /* above the backdrop */
+    }
+
+    .filter-bar-mobile .calendar-wrapper .calendar-container.visible,
+    .filter-bar-mobile .dropdown-wrapper .dropdown-panel.visible {
+        z-index: 23;           /* highest of the bunch */
+    }
+
+    .no-scroll {
+        overflow: hidden !important;
+    }
+
+    #mobile-categories-dropdown {
+        display: inline-block;
+    }
+    
+    #mobile-events-categories-panel {
+        display: none;
+    }
+
+    #mobile-events-categories-panel.visible {
+        display: flex;
+        position: fixed;
+        top: 62px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 62px - 60.2px);
+        flex-direction: column;
+        overflow-y: auto;
+        max-height: none;
+        margin-top: 0px;
+        box-shadow: none;
+        min-width: 0;
+        border-radius: 0;
+        padding: 32px 24px;
+        box-sizing: border-box;
+    }
+        
+    #mobile-events-categories-panel h3 {
+        margin-top: 24px;
+        margin-bottom: 8px;
+        color: #3E1928;
+        font-size: 16px;
+        font-family: IBM Plex Sans;
+        font-weight: 600;
+        word-wrap: break-word;
+    }
+
+    #mobile-close-categories {
+        background: none;
+        border: none;
+        padding: 4px;
+        cursor: pointer;
+    }
+
+    #mobile-close-categories img {
+        display: block;
+        width: 24px;
+        height: 24px;
+    }
+
+    .mobile-categories-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0;
+    }
+      
+      /* your title styling */
+    .mobile-categories-header h3 {
+        margin: 0 !important;
+        font-family: "IBM Plex Sans", sans-serif;
+        font-weight: 600 !important;
+        font-size: 20px !important;
+        line-height: 100% !important;
+        letter-spacing: 0% !important;
+    }
+    
+    /* sections stack nicely */
+    #mobile-events-categories-panel section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #mobile-events-categories-panel section:last-of-type {
+        margin-bottom: 8px;
+    }
+
+    #mobile-events-categories-panel 
+    .dropdown-option input[type="checkbox"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border: 1.5px solid #878787;
+        border-radius: 2px;
+        position: relative;
+        vertical-align: middle;
+        margin: 0;
+        accent-color: transparent; /* just in case */
+    }
+  
+  /* 2) Only draw the background & checkmark when checked */
+    #mobile-events-categories-panel 
+    .dropdown-option input[type="checkbox"]:checked {
+        background-color: #AD537C;
+    }
+  
+  /* 3) Only show the “✓” when checked */
+    #mobile-events-categories-panel 
+    .dropdown-option input[type="checkbox"]:checked::after {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        display: block;
+    }
+
+    .dropdown-option {
+        padding: 8px 0px;
+    }
+
+    #mobile-events-categories-panel footer button {
+        flex: 1 1 48%;       /* already there, but just to be sure */
+        margin: 0;           /* remove the old 24px margin */
+        height: 44px;        /* match your filter-item height */
+        box-shadow: none;    /* kill the desktop drop shadow */
+        border-radius: 2px;  /* keep your corner radius */
+        font-family: IBM Plex Sans;
+        font-size: 16px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #mobile-cancel-categories {
+        background: #fff !important;
+        border: 1px solid #AD537C !important;
+        color: #AD537C !important;
+    }
+    
+    #mobile-apply-categories {
+        background: #AD537C !important;
+        border: none !important;
+        color: #F6F4EA !important;
+    }
+
+    #filterLabelsContainer {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        /* Scrollbar hiding */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;     /* Firefox */
+    }
+
+    #filterLabelsContainer::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-menu-events-button {
+        justify-content: flex-start; /* Align icon and text to the left */
+    }
+
+    .mobile-menu-fairy-icon {
+        margin-bottom: 4px;  /* Nudge effect from desktop style */
+        margin-right: 8px;   /* Increased slightly for better spacing from text in mobile menu */
+        width: 20px;         /* Adjust size as needed, typical for menu icons */
+        height: 20px;
+        filter: brightness(0) invert(1); /* Makes a black/dark SVG white */
+    }
+}
+
+@media (min-width: 390px) and (max-width: 550px) {
+    .engage-button {
+        border: 1px dashed #25121B;
+    }
+    .engage-button-shadow {
+        border: 0px dashed #25121B;
+    }
+}
+
+@media (max-width: 400px) {
+    #calendar-container.visible .nav-tabs {
+        margin-bottom: 4px;
+    }
+
+    #calendar-container.visible .month-navigation {
+        margin: 4px 0;
+    }
+
+    .mobile-toolbar {
+        padding-left: 4px;
+        padding-right: 6px;
+        display: flex;
+    }
+
+    #mobile-events-btn {
+        margin-left: 0px;
+    }
+
+    #calendar-container.visible .month-navigation .nav-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    #calendar-container.visible .nav-tabs .nav-tab {
+        padding: 5px 10px;
+        font-size: 11px;
+        height: 38px;
+    }
+
+    #calendar-container.visible {
+        padding: 8px 12px;
+        width: calc(100vw - 24px - 5px);
+    }
+
+    #calendar-container.visible .calendar-grid .calendar-day {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #calendar-container.visible #range-bar-container .calendar-confirm-btn {
+        height: 40px;
+        padding: 0 12px;
+        font-size: 14px;
+    }
+
+    #calendar-container.visible #range-bar-container {
+        margin-top: 6px;
+    }
+
+    .calendar-clear-btn {
+        margin-left: 0px;
+    }
+
+    #calendar-btn {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    /* #calendar-container.visible .month-navigation #month-year {
+        font-size: 15px;
+    }
+
+    #calendar-container.visible .weekday-header .weekday {
+        font-size: 10px;
+        padding: 1px 4px;
+    }
+
+    #calendar-container.visible .calendar-grid {
+        gap: 2px;
+    }
+    */
+}
+
+
+@media (max-width: 550px) {
+    .event-detail-panel {
+        top: 62px; 
+        height: calc(100svh - 62px);
+        padding: 24px 16px 16px 16px; /* Top: 24px, Sides & Bottom: 16px */
+        box-sizing: border-box;
+        z-index: 22;
+    }
+
+    .event-detail-main-row {
+        flex-direction: column;
+    }
+
+    .event-detail-header {
+        width: 100%;    /* It will fill the width within the panel's 16px side padding */
+        height: 240px;  /* Your desired mobile image height */
+        margin-top: 0;  /* Panel padding handles top spacing */
+        margin-left: 0; /* Panel padding handles side spacing */
+        margin-right: 0;/* Panel padding handles side spacing */
+        margin-bottom: 16px; /* Space it from the content wrapper below */
+        background-size: cover;
+        background-position: center;
+        position: relative; /* For the close button */
+    }
+    
+    .event-detail-close-button {
+        position: absolute; /* Position relative to .event-detail-header */
+        top: 32px;          /* Adjust spacing from the top of the image */
+        right: 18px;         /* Adjust spacing from the right of the image */
+        z-index: 21;          /* Ensure it's above the image */
+    
+        /* Revert to original visual styling (no new background/padding unless desired) */
+        background: transparent; /* Original background */
+        border: none;            /* Original border */
+        padding: 0;              /* Original padding, or minimal like 4px if needed for tap area */
+        border-radius: 0;        /* Remove border-radius if you don't want a circular background */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .event-detail-close-button img {
+        width: 18px;  /* Your original icon size */
+        height: 18px; /* Your original icon size */
+        display: block;
+    }
+    
+    #eventDetailCloseButton {
+        width: 32px;
+        height: 32px;
+        background-color: #FBF7F2;
+        padding: 4px;
+    }
+    
+    /* 3. Content Wrapper - Ensure consistent padding */
+    .event-detail-content-wrapper {
+        width: 100%; /* It will fill the width within the panel's 16px side padding */
+        padding: 0;  /* Its own padding is reset to 0. Content inside will be 16px from panel edge.
+                        If you want additional padding, you can set it here e.g., padding: 0 0 16px 0; for bottom only */
+        box-sizing: border-box;
+        min-height: auto;
+    }
+    
+    /* 5. Category Tags (to match styling of .read-more-category in .read-more-container-mobile) */
+    .event-detail-categories .category-tag {
+        font-family: 'IBM Plex Sans', sans-serif; /* From .read-more-category */
+        font-size: 14px;       /* From .read-more-category */
+        font-weight: 400;      /* From .read-more-category */
+        line-height: 1.3;      /* Approximate from .read-more-category */
+        color: #3E1928;        /* Your existing color */
+        border: 1px solid #3E1928; /* Your existing border, ensure color matches */
+        padding: 3px 6px;      /* Slightly adjusted padding */
+        border-radius: 2px 0px 0px 0px; /* Your existing radius */
+        margin-right: 8px;
+        margin-bottom: 8px;
+        display: inline-block;
+        text-transform: uppercase;
+    }
+
+    .event-detail-title {
+        font-family: 'Anton', sans-serif; /* From .read-more-title */
+        font-size: 22px;        /* From .read-more-title */
+        font-weight: 400;       /* From .read-more-title */
+        line-height: 1.3;       /* From .read-more-title (approximated from 26px on 22px font) */
+        letter-spacing: -0.02em;/* From .read-more-title */
+        color: #3E1928;         /* From .read-more-title */
+        margin-top: 0;          /* Reset margin if categories are directly above */
+        margin-bottom: 8px;    /* Consistent spacing */
+    }
+    
+    /* 7. Quote - adjust if needed */
+    .event-detail-quote {
+        font-size: 15px; /* Slightly smaller for mobile */
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+    
+    
+    /* 8. Info Items (Location, Date/Time - to match .read-more-address parts) */
+    .event-detail-info-item {
+        padding-top: 4px;
+        padding-bottom: 32px;
+        align-items: flex-start; /* Align icon to the top if text wraps */
+    }
+    .event-detail-info-item img { /* Icons for location, date */
+        width: 20px;        /* Size from .read-more-address-icon */
+        height: 20px;       /* Size from .read-more-address-icon */
+        margin-right: 10px; /* Increased margin for clarity */
+    }
+    
+    /* Location Text (to match .read-more-address-text-content) */
+    #eventDetailLocationItem #eventDetailLocationText {
+        font-family: 'IBM Plex Sans', sans-serif; /* From .read-more-address */
+        font-size: 16px;        /* From .read-more-address */
+        font-weight: 400;       /* From .read-more-address */
+        line-height: 1.3;       /* From .read-more-address */
+        color: #717171;         /* Softer color for address text */
+        text-decoration: none;  /* Remove underline unless it's specifically clickable to map here */
+        cursor: pointer;        /* Already set in JS */
+    }
+    
+    /* Date/Time Text */
+    #eventDetailDateTimeItem .datetime-original-content span {
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 18px;
+        font-weight: 500;       /* Date/time can be slightly more prominent */
+        line-height: 1.3;
+        color: #3E1928;
+    }
+    #eventDetailDateTimeItem { /* Container for date/time and ticket button */
+        padding-top: 32px; /* Consistent with other info items */
+    }
+    .datetime-original-content {
+        margin-bottom: 16px; /* Space before ticket button */
+    }
+
+    .event-detail-related-events-container {
+        display: flex;             /* Match recent-events-container */
+        flex-direction: column;    /* Stack cards vertically */
+        gap: 24px;                 /* Match gap from recent-events-container */
+        align-items: center;       /* Match recent-events-container */
+        overflow-x: visible;       /* Remove horizontal scroll if it was set */
+        padding-bottom: 16px;      /* Add some padding at the bottom if cards are last */
+    }
+
+    .event-detail-related-events-container .event-card {
+        width: 100%;               /* Match recent-events-container .event-card */
+        max-width: none;           /* Match recent-events-container .event-card */
+        min-width: 0;              /* Reset min-width */
+        height: 330px;             /* Match recent-events-container .event-card fixed height */
+        /* Other .event-card base styles (border, background, etc.) are already applied */
+    }
+
+    /* Ensure image within these cards behaves like in .recent-events-container */
+    .event-detail-related-events-container .event-card .event-image {
+        width: 100%;               /* Match recent-events-container .event-card .event-image */
+        height: 170px;             /* Match recent-events-container .event-card .event-image */
+        object-fit: cover;         /* Match recent-events-container .event-card .event-image */
+    }
+
+    /* Ensure .event-details within these cards also behaves well with fixed height */
+    .event-detail-related-events-container .event-card .event-details {
+        min-height: 0; /* Reset min-height if card has fixed height */
+        /* It already has flex: 1 and flex-direction: column, which is good */
+    }
+
+    .event-detail-ticket-button-container {
+        max-width: 100%; /* Allow it to be full width on mobile */
+        margin-top: 8px;
+    }
+
+    /* 6. Description Section Title (e.g., "Descriere") */
+    .event-detail-content-wrapper > .event-detail-section-title { /* For "Descriere", "Organizator" etc. */
+        font-family: 'Anton', sans-serif; /* Match .read-more-section-title */
+        font-size: 20px; /* Slightly smaller than desktop, matches .read-more-section-title-descr-mob */
+        margin-top: 24px;
+        margin-bottom: 8px;
+        border-bottom: none; /* Remove desktop border, mobile image shows clean titles */
+        padding-bottom: 0;
+    }
+
+    /* 7. Description Text (to match .read-more-text mobile) */
+    .event-detail-description p {
+        font-size: 17px;       /* Matches .read-more-text */
+        line-height: 1.6;      /* Matches .read-more-text */
+        color: #25121B;        /* Matches .read-more-text */
+        margin-bottom: 24px;
+    }
+    .event-detail-description .read-more-text-btn {
+        font-size: 17px; /* Match paragraph font size */
+    }
+
+
+    /* 8. Organizer Section - Name (to match .read-more-title visually) */
+    .organizer-name-line {
+        margin-bottom: 8px; /* Reduced space */
+        /* align-items: center; /* Already there */
+    }
+    .organizer-title-icon { /* Icon next to organizer name */
+        width: 24px;  /* Adjust size for mobile */
+        height: 24px;
+    }
+    .event-detail-organizer-name {
+        color: #AD537C;
+        font-size: 18px;
+        font-family: IBM Plex Sans;
+        font-weight: 500;
+        text-decoration: underline;
+        line-height: 25.20px;
+        word-wrap: break-word;
+    }
+
+    /* Organizer Description Preview (to match .read-more-text mobile) */
+    #eventDetailOrganizerDescription {
+        font-size: 17px;       /* Matches .read-more-text */
+        color: #AD537C;        /* Your existing color for this */
+        margin-left: 0;        /* Remove indent if icon stacks or aligns left */
+        margin-top: 4px;
+        padding-bottom: 0px; /* Space before social links */
+        font-weight: 400;
+        line-height: 23.80px;
+        word-wrap: break-word;
+        margin-bottom: 0px;
+    }
+
+    #eventDetailOrgSectionTitle {
+        margin-bottom: 16px;
+    }
+
+    .organizer-description-arrow-svg, 
+    .organizer-description-arrow-icon {
+        width: 24px;
+        height: 24px;
+        margin-left: 0.3em;
+    }
+
+
+    /* Organizer Social Links (to match .read-more-social-links on mobile) */
+    .event-detail-organizer .read-more-social-links {
+        padding-top: 24px;
+        padding-bottom: 24px; /* Add padding if border removed above */
+        margin-top: 0; 
+        gap: 24px; /* Reduce gap for mobile */
+    }
+    .event-detail-organizer .read-more-social-link {
+        font-size: 12px; /* Smaller text for mobile social links */
+    }
+    .event-detail-organizer .read-more-social-icon {
+        width: 36px; /* Slightly smaller icon background */
+        height: 36px;
+    }
+    .event-detail-organizer .read-more-social-icon img {
+        width: 20px; /* Smaller icons */
+        height: 20px;
+    }
+
+    /* Share Section Title */
+    .event-detail-content-wrapper > #eventDetailShareSectionTitle {
+        margin-top: 24px;
+        color: #5A5A5A;
+        font-size: 16px;
+        font-family: IBM Plex Sans;
+        font-weight: 600;
+        word-wrap: break-word;
+    }
+    .event-detail-share {
+        padding-bottom: 0px; /* Space at the end of the content wrapper */
+        border-bottom: none;
+        margin-bottom: 24px;
+    }
+
+    .event-detail-related-section-wrapper {
+        padding: 0px 0px 24px 0px;
+    }
+
+    .read-more-container-mobile-fixed .event-detail-related-section-wrapper {
+        margin-top: 16px;
+    }
+
+    #readMoreRelatedEventsContainerMobile {
+        padding-bottom: 0px;
+    }
+
+    .custom-dashed-separator {
+        width: 100%; /* Separator will also respect the panel's side padding */
+        margin-left: 0; /* Reset from desktop if it had specific calc() */
+        margin-right: 0; /* Reset */
+    }
+
+    .event-detail-panel .footer-container {
+        margin-left: 0; /* Footer will also respect the panel's side padding */
+        margin-right: 0;
+        margin-bottom: 16px;
+    }
+
+    /* Ensure related events title is also styled consistently */
+    .event-detail-related-section-wrapper > .event-detail-section-title {
+        font-family: 'Anton', sans-serif;
+        font-size: 20px;
+        border-bottom: none;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+        margin-top: 0px;
+        border-top: 1px #3E1928 dashed;
+        padding-top: 24px;
+    }
+
+    #mobile-articles-page {
+        position: absolute;
+        top: 62px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 62px - 61px);
+        background-color: #FBF7F2;
+        z-index: 20;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-page-header {
+        padding: 32px 16px;
+        text-align: center;
+        position: relative;
+    }
+
+    .mobile-page-title {
+        color: #3E1928;
+        font-family: Anton;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: center;
+        margin: 48px 0 20px 0;
+    }
+
+    .mobile-page-subtitle {
+        color: #3E1928;
+        font-size: 16px;
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 400;
+        word-wrap: break-word;
+        margin: 0;
+        padding: 0;
+    }
+
+    .mobile-page-close-button {
+        position: absolute;
+        top: 24px;
+        right: 18px;
+        background: transparent;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .mobile-articles-list-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        padding: 0 16px 32px 16px;
+    }
+
+    .mobile-articles-list-container .article-card {
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+    }
+
+    .desktop-only-panel {
+        display: none !important;
+    }
+
+    .mobile-only-panel {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    .discover-title {
+        font-family: 'Anton', sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        text-align: center;
+        color: #3E1928;
+        margin-top: 24px;
+        margin-bottom: 16px;
+        padding: 0 16px;
+    }
+
+    #mobile-discover-panel .side-panel-title,
+    #mobile-filters-panel .side-panel-title {
+        position: relative;
+        display: block;
+        text-align: center;
+        padding: 32px 16px; 
+        margin: 0;               
+    }
+
+    #mobile-discover-panel .discover-title,
+    #mobile-filters-panel #mobile-filters-panel-name {
+        font-family: 'Anton', sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 100%;
+        color: #3E1928;
+        padding: 0;
+        margin: 0;
+        margin-top: 78px;
+        margin-bottom: 32px;
+    }
+
+    .mobile-panel-close-button {
+        position: absolute;
+        top: -54px;
+        right: 18px;
+        padding: 8px;
+    }
+
+    #article-card-container-bottom {
+        overflow-x: auto;
+        padding: 0 16px 24px 16px;
+        -webkit-overflow-scrolling: touch;
+        min-height: 310px;
+    }
+
+    #article-card-container-bottom .article-card {
+        flex-shrink: 0;
+    }
+}
+
+.audio-player-container {
+    background-color: rgba(234, 171, 200, 0.18);
+    border-radius: 0;
+    padding: 20px 30px;
+    margin: 30px auto;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    width: 748px;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #AD537C;
+}
+
+.player-controls {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.progress-bar-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.audio-player-container .progress-bar {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.progress-bar::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #AD537C var(--progress, 0%), #e0e0e0 var(--progress, 0%)); /* Progress fill */
+    border-radius: 5px;
+    height: 8px;
+}
+
+.progress-bar::-moz-range-track {
+    background: linear-gradient(to right, #AD537C var(--progress, 0%), #e0e0e0 var(--progress, 0%));
+    border-radius: 5px;
+    height: 8px;
+}
+
+.progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #AD537C;
+    cursor: pointer;
+    margin-top: -6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.progress-bar::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #AD537C;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+}
+
+.playback-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 15px;
+}
+
+.control-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-pause-button {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #AD537C;
+    border-radius: 50%;
+    position: relative;
+    background-color: transparent;
+}
+
+.play-pause-button.play::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    border-left: 18px solid #AD537C;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.play-pause-button.pause::before,
+.play-pause-button.pause::after {
+    content: '';
+    position: absolute;
+    background-color: #AD537C;
+    height: 20px;
+    width: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.play-pause-button.pause::before {
+    left: calc(50% - 7px);
+}
+.play-pause-button.pause::after {
+    left: calc(50% + 1px);
+}
+
+.rewind-button::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 18px solid #AD537C;
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.forward-button::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 18px solid #AD537C;
+    position: relative;
+    right: 0;
+    top: 0;
+}
+
+.narrator-info {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 20px;
+}
+
+
+@media (max-width: 550px) {
+    .audio-player-container {
+        padding: 15px 20px;
+        margin: 20px auto;
+        width: 100%;
+    }
+
+    .playback-buttons {
+        gap: 20px;
+    }
+
+    .control-button {
+        width: 35px;
+        height: 35px;
+    }
+
+    .play-pause-button {
+        width: 50px;
+        height: 50px;
+    }
+
+    .play-pause-button.play::before {
+        border-left: 15px solid #AD537C;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+    }
+
+    .play-pause-button.pause::before,
+    .play-pause-button.pause::after {
+        height: 18px;
+        width: 5px;
+    }
+    .play-pause-button.pause::before {
+        left: calc(50% - 6px);
+    }
+    .play-pause-button.pause::after {
+        left: calc(50% + 1px);
+    }
+
+    .audio-player-container {
+        border-radius: 0;
+    }
+
+    .rewind-button::before {
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 15px solid #AD537C;
+    }
+
+    .forward-button::before {
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 15px solid #AD537C;
+    }
+}
